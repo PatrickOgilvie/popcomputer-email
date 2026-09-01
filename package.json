@@ -1,0 +1,117 @@
+{
+  "name": "@popcomputer/email",
+  "version": "0.1.0",
+  "description": "Effect-native email sending, receiving, routing, and workflow triggers",
+  "type": "module",
+  "packageManager": "bun@1.3.1",
+  "engines": {
+    "node": ">=22"
+  },
+  "sideEffects": false,
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./adapter": {
+      "types": "./dist/adapter.d.ts",
+      "import": "./dist/adapter.js"
+    },
+    "./client": {
+      "types": "./dist/client.d.ts",
+      "import": "./dist/client.js"
+    },
+    "./protocol": {
+      "types": "./dist/protocol.d.ts",
+      "import": "./dist/protocol.js"
+    },
+    "./cloudflare": {
+      "types": "./dist/cloudflare.d.ts",
+      "import": "./dist/cloudflare.js"
+    },
+    "./d1": {
+      "types": "./dist/d1.d.ts",
+      "import": "./dist/d1.js"
+    },
+    "./d1/schema": {
+      "types": "./dist/d1-schema.d.ts",
+      "import": "./dist/d1-schema.js"
+    },
+    "./migrations/d1/*": "./migrations/d1/*",
+    "./testing": {
+      "types": "./dist/testing.d.ts",
+      "import": "./dist/testing.js"
+    }
+  },
+  "files": [
+    "dist",
+    "docs",
+    "examples",
+    "migrations/d1",
+    "openapi",
+    "CHANGELOG.md",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "clean": "node --input-type=module --eval \"import { rmSync } from 'node:fs'; rmSync('dist', { recursive: true, force: true })\"",
+    "build": "bun run clean && tsc",
+    "check": "bun run check:architecture && bun run check:openapi && tsc --noEmit && tsc -p tsconfig.type-tests.json && tsc -p tsconfig.examples.json && tsc -p tsconfig.cloudflare-tests.json",
+    "check:architecture": "node scripts/check-architecture.mjs",
+    "check:openapi": "node scripts/check-openapi.mjs",
+    "lint": "oxlint .",
+    "test": "bun test",
+    "test:cloudflare": "vitest run --config vitest.cloudflare.config.ts",
+    "test:node": "bun run build && node tests/node-esm-smoke.mjs",
+    "test:package:types": "tsc -p tsconfig.package-tests.json",
+    "test:package": "bun run build && bun run test:package:types && node tests/node-esm-smoke.mjs && npm pack --dry-run --ignore-scripts --offline --cache node_modules/.cache/npm",
+    "test:types": "tsc -p tsconfig.type-tests.json",
+    "openapi:generate": "node scripts/check-openapi.mjs --write",
+    "verify": "bun run lint && bun run check && bun test && bun run test:cloudflare && bun run test:package",
+    "prepack": "bun run build",
+    "prepublishOnly": "bun run verify"
+  },
+  "keywords": [
+    "cloudflare",
+    "effect",
+    "effect-ts",
+    "email",
+    "popcomputer",
+    "workflow"
+  ],
+  "author": "Patrick Ogilvie",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PatrickOgilvie/popcomputer-email.git"
+  },
+  "homepage": "https://github.com/PatrickOgilvie/popcomputer-email#readme",
+  "bugs": {
+    "url": "https://github.com/PatrickOgilvie/popcomputer-email/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "drizzle-orm": "0.45.2",
+    "postal-mime": "2.7.5"
+  },
+  "peerDependencies": {
+    "effect": "^4.0.0-rc.109"
+  },
+  "devDependencies": {
+    "@cloudflare/vitest-plugin": "1.0.0",
+    "@cloudflare/workers-types": "5.20260822.1",
+    "@oxlint/plugins": "1.78.0",
+    "@types/bun": "1.3.14",
+    "drizzle-kit": "0.31.10",
+    "effect": "4.0.0-rc.109",
+    "oxlint": "1.78.0",
+    "tsx": "4.23.13",
+    "typescript": "5.9.3",
+    "vitest": "4.1.0"
+  }
+}

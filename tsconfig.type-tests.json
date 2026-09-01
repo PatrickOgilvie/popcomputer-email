@@ -1,0 +1,24 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noEmit": true,
+    "rootDir": ".",
+    "baseUrl": ".",
+    "paths": {
+      "@popcomputer/email": ["./src/index.ts"],
+      "@popcomputer/email/adapter": ["./src/adapter.ts"],
+      "@popcomputer/email/client": ["./src/client.ts"],
+      "@popcomputer/email/protocol": ["./src/protocol.ts"],
+      "@popcomputer/email/cloudflare": ["./src/cloudflare.ts"],
+      "@popcomputer/email/d1": ["./src/d1.ts"],
+      "@popcomputer/email/d1/schema": ["./src/d1-schema.ts"],
+      "@popcomputer/email/testing": ["./src/testing.ts"]
+    }
+  },
+  "include": [
+    "src/**/*.ts",
+    "tests/**/*.ts",
+    "examples/**/*.ts"
+  ],
+  "exclude": ["dist", "node_modules", "tests/cloudflare"]
+}

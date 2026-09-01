@@ -1,0 +1,4458 @@
+{
+  "openapi": "3.1.0",
+  "jsonSchemaDialect": "https://json-schema.org/draft/2020-12/schema",
+  "info": {
+    "title": "Pop Computer Email API",
+    "version": "1.0.0"
+  },
+  "tags": [
+    {
+      "name": "Emails"
+    },
+    {
+      "name": "Email routes"
+    },
+    {
+      "name": "Test recipients"
+    }
+  ],
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ],
+  "paths": {
+    "/emails": {
+      "post": {
+        "operationId": "sendEmail",
+        "tags": [
+          "Emails"
+        ],
+        "parameters": [
+          {
+            "name": "idempotency-key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "allOf": [
+                {
+                  "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
+                },
+                {
+                  "minLength": 1
+                },
+                {
+                  "maxLength": 200
+                },
+                {
+                  "pattern": "^[\\x21-\\x7e]+$"
+                }
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EmailMessageEnvelope"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Payload Too Large",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "Unsupported Media Type",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Content",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "x-popcomputer-permissions": [
+          "send"
+        ],
+        "x-popcomputer-idempotency": "required",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SendEmailRequest"
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "operationId": "listEmails",
+        "tags": [
+          "Emails"
+        ],
+        "parameters": [
+          {
+            "name": "direction",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "inbound",
+                "outbound"
+              ]
+            }
+          },
+          {
+            "name": "cursor",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "allOf": [
+                {
+                  "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
+                },
+                {
+                  "minLength": 1
+                },
+                {
+                  "maxLength": 2048
+                },
+                {
+                  "pattern": "^[A-Za-z0-9_-]+$"
+                }
+              ]
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EmailMessagePage"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "x-popcomputer-permissions": [
+          "read"
+        ],
+        "x-popcomputer-idempotency": "not_required"
+      }
+    },
+    "/emails/{email}/content": {
+      "get": {
+        "operationId": "getEmailContent",
+        "tags": [
+          "Emails"
+        ],
+        "parameters": [
+          {
+            "name": "email",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "allOf": [
+                {
+                  "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
+                },
+                {
+                  "minLength": 1
+                },
+                {
+                  "maxLength": 200
+                },
+                {
+                  "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
+                }
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReceivedContentEnvelope"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Payload Too Large",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Content",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "x-popcomputer-permissions": [
+          "read"
+        ],
+        "x-popcomputer-idempotency": "not_required"
+      }
+    },
+    "/emails/{email}/attachments/{attachment}": {
+      "get": {
+        "operationId": "getEmailAttachment",
+        "tags": [
+          "Emails"
+        ],
+        "parameters": [
+          {
+            "name": "email",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "allOf": [
+                {
+                  "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
+                },
+                {
+                  "minLength": 1
+                },
+                {
+                  "maxLength": 200
+                },
+                {
+                  "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
+                }
+              ]
+            }
+          },
+          {
+            "name": "attachment",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "allOf": [
+                {
+                  "pattern": "^v1_[0-9]+$"
+                }
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/octet-stream": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary",
+                  "contentMediaType": "application/octet-stream"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Payload Too Large",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Content",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "x-popcomputer-permissions": [
+          "read"
+        ],
+        "x-popcomputer-idempotency": "not_required"
+      }
+    },
+    "/emails/{email}/raw": {
+      "get": {
+        "operationId": "getRawEmail",
+        "tags": [
+          "Emails"
+        ],
+        "parameters": [
+          {
+            "name": "email",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "allOf": [
+                {
+                  "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
+                },
+                {
+                  "minLength": 1
+                },
+                {
+                  "maxLength": 200
+                },
+                {
+                  "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
+                }
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "message/rfc822": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary",
+                  "contentMediaType": "message/rfc822"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "x-popcomputer-permissions": [
+          "read"
+        ],
+        "x-popcomputer-idempotency": "not_required"
+      }
+    },
+    "/emails/{email}/reply": {
+      "post": {
+        "operationId": "replyToEmail",
+        "tags": [
+          "Emails"
+        ],
+        "parameters": [
+          {
+            "name": "email",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "allOf": [
+                {
+                  "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
+                },
+                {
+                  "minLength": 1
+                },
+                {
+                  "maxLength": 200
+                },
+                {
+                  "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
+                }
+              ]
+            }
+          },
+          {
+            "name": "idempotency-key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "allOf": [
+                {
+                  "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
+                },
+                {
+                  "minLength": 1
+                },
+                {
+                  "maxLength": 200
+                },
+                {
+                  "pattern": "^[\\x21-\\x7e]+$"
+                }
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EmailMessageEnvelope"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Payload Too Large",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "Unsupported Media Type",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Content",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "x-popcomputer-permissions": [
+          "read",
+          "send"
+        ],
+        "x-popcomputer-idempotency": "required",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReplyEmailRequest"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/emails/{email}": {
+      "get": {
+        "operationId": "getEmail",
+        "tags": [
+          "Emails"
+        ],
+        "parameters": [
+          {
+            "name": "email",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "allOf": [
+                {
+                  "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
+                },
+                {
+                  "minLength": 1
+                },
+                {
+                  "maxLength": 200
+                },
+                {
+                  "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
+                }
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EmailMessageEnvelope"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "x-popcomputer-permissions": [
+          "read"
+        ],
+        "x-popcomputer-idempotency": "not_required"
+      }
+    },
+    "/email-routes": {
+      "get": {
+        "operationId": "listEmailRoutes",
+        "tags": [
+          "Email routes"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EmailRouteList"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "x-popcomputer-permissions": [
+          "read"
+        ],
+        "x-popcomputer-idempotency": "not_required"
+      },
+      "post": {
+        "operationId": "provisionEmailRoute",
+        "tags": [
+          "Email routes"
+        ],
+        "parameters": [
+          {
+            "name": "idempotency-key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "allOf": [
+                {
+                  "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
+                },
+                {
+                  "minLength": 1
+                },
+                {
+                  "maxLength": 200
+                },
+                {
+                  "pattern": "^[\\x21-\\x7e]+$"
+                }
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EmailRouteEnvelope"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Content",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "x-popcomputer-permissions": [
+          "manage"
+        ],
+        "x-popcomputer-idempotency": "required",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProvisionRouteRequest"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/email-routes/{route}/pause": {
+      "post": {
+        "operationId": "pauseEmailRoute",
+        "tags": [
+          "Email routes"
+        ],
+        "parameters": [
+          {
+            "name": "route",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "allOf": [
+                {
+                  "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
+                },
+                {
+                  "minLength": 1
+                },
+                {
+                  "maxLength": 200
+                },
+                {
+                  "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
+                }
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EmailRouteEnvelope"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Content",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "x-popcomputer-permissions": [
+          "manage"
+        ],
+        "x-popcomputer-idempotency": "not_required"
+      }
+    },
+    "/email-routes/{route}/resume": {
+      "post": {
+        "operationId": "resumeEmailRoute",
+        "tags": [
+          "Email routes"
+        ],
+        "parameters": [
+          {
+            "name": "route",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "allOf": [
+                {
+                  "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
+                },
+                {
+                  "minLength": 1
+                },
+                {
+                  "maxLength": 200
+                },
+                {
+                  "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
+                }
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EmailRouteEnvelope"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Content",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "x-popcomputer-permissions": [
+          "manage"
+        ],
+        "x-popcomputer-idempotency": "not_required"
+      }
+    },
+    "/email-routes/{route}/rotate": {
+      "post": {
+        "operationId": "rotateEmailRoute",
+        "tags": [
+          "Email routes"
+        ],
+        "parameters": [
+          {
+            "name": "route",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "allOf": [
+                {
+                  "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
+                },
+                {
+                  "minLength": 1
+                },
+                {
+                  "maxLength": 200
+                },
+                {
+                  "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
+                }
+              ]
+            }
+          },
+          {
+            "name": "idempotency-key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "allOf": [
+                {
+                  "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
+                },
+                {
+                  "minLength": 1
+                },
+                {
+                  "maxLength": 200
+                },
+                {
+                  "pattern": "^[\\x21-\\x7e]+$"
+                }
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RouteRotation"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "x-popcomputer-permissions": [
+          "manage"
+        ],
+        "x-popcomputer-idempotency": "required"
+      }
+    },
+    "/email-routes/{route}": {
+      "delete": {
+        "operationId": "disableEmailRoute",
+        "tags": [
+          "Email routes"
+        ],
+        "parameters": [
+          {
+            "name": "route",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "allOf": [
+                {
+                  "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
+                },
+                {
+                  "minLength": 1
+                },
+                {
+                  "maxLength": 200
+                },
+                {
+                  "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
+                }
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EmailRouteEnvelope"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "x-popcomputer-permissions": [
+          "manage"
+        ],
+        "x-popcomputer-idempotency": "not_required"
+      }
+    },
+    "/email-test-recipients": {
+      "get": {
+        "operationId": "listEmailTestRecipients",
+        "tags": [
+          "Test recipients"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EmailTestRecipientList"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "x-popcomputer-permissions": [
+          "read"
+        ],
+        "x-popcomputer-idempotency": "not_required"
+      },
+      "post": {
+        "operationId": "createEmailTestRecipient",
+        "tags": [
+          "Test recipients"
+        ],
+        "parameters": [
+          {
+            "name": "idempotency-key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "allOf": [
+                {
+                  "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
+                },
+                {
+                  "minLength": 1
+                },
+                {
+                  "maxLength": 200
+                },
+                {
+                  "pattern": "^[\\x21-\\x7e]+$"
+                }
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EmailTestRecipientEnvelope"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Content",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "x-popcomputer-permissions": [
+          "manage"
+        ],
+        "x-popcomputer-idempotency": "required",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddTestRecipientRequest"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/email-test-recipients/{recipient}/refresh": {
+      "post": {
+        "operationId": "refreshEmailTestRecipient",
+        "tags": [
+          "Test recipients"
+        ],
+        "parameters": [
+          {
+            "name": "recipient",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "allOf": [
+                {
+                  "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
+                },
+                {
+                  "minLength": 1
+                },
+                {
+                  "maxLength": 200
+                },
+                {
+                  "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
+                }
+              ]
+            }
+          },
+          {
+            "name": "idempotency-key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "allOf": [
+                {
+                  "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
+                },
+                {
+                  "minLength": 1
+                },
+                {
+                  "maxLength": 200
+                },
+                {
+                  "pattern": "^[\\x21-\\x7e]+$"
+                }
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EmailTestRecipientEnvelope"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Content",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "x-popcomputer-permissions": [
+          "manage"
+        ],
+        "x-popcomputer-idempotency": "required"
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ErrorResponse": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "object",
+            "properties": {
+              "code": {
+                "type": "string",
+                "enum": [
+                  "invalid_request",
+                  "invalid_idempotency_key",
+                  "unauthorized",
+                  "forbidden",
+                  "not_found",
+                  "idempotency_conflict",
+                  "transition_conflict",
+                  "message_too_large",
+                  "unsupported_media_type",
+                  "validation_failed",
+                  "recipient_not_permitted",
+                  "route_inactive",
+                  "route_not_sendable",
+                  "rate_limited",
+                  "service_unavailable",
+                  "internal_error"
+                ]
+              },
+              "message": {
+                "type": "string",
+                "allOf": [
+                  {
+                    "minLength": 1
+                  },
+                  {
+                    "maxLength": 500
+                  }
+                ]
+              },
+              "requestId": {
+                "type": "string",
+                "allOf": [
+                  {
+                    "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
+                  },
+                  {
+                    "minLength": 1
+                  },
+                  {
+                    "maxLength": 200
+                  }
+                ]
+              }
+            },
+            "required": [
+              "code",
+              "message"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "error"
+        ],
+        "additionalProperties": false
+      },
+      "SendEmailRequest": {
+        "type": "object",
+        "properties": {
+          "fromRouteId": {
+            "type": "string",
+            "allOf": [
+              {
+                "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
+              },
+              {
+                "minLength": 1
+              },
+              {
+                "maxLength": 200
+              },
+              {
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
+              }
+            ]
+          },
+          "to": {
+            "type": "array",
+            "prefixItems": [
+              {
+                "type": "string",
+                "allOf": [
+                  {
+                    "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
+                  }
+                ]
+              }
+            ],
+            "minItems": 1,
+            "items": {
+              "type": "string",
+              "allOf": [
+                {
+                  "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
+                }
+              ]
+            }
+          },
+          "cc": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "allOf": [
+                {
+                  "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
+                }
+              ]
+            }
+          },
+          "bcc": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "allOf": [
+                {
+                  "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
+                }
+              ]
+            }
+          },
+          "subject": {
+            "type": "string",
+            "allOf": [
+              {
+                "maxLength": 998
+              },
+              {
+                "pattern": "^[^\\r\\n]*$"
+              }
+            ]
+          },
+          "automation": {
+            "type": "string",
+            "enum": [
+              "auto_generated"
+            ]
+          },
+          "text": {
+            "type": "string"
+          },
+          "html": {
+            "type": "string"
+          },
+          "headers": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "allOf": [
+                    {
+                      "minLength": 1
+                    },
+                    {
+                      "maxLength": 78
+                    },
+                    {
+                      "pattern": "^[!#$%&'*+.^_`|~0-9A-Za-z-]+$"
+                    }
+                  ]
+                },
+                "value": {
+                  "type": "string",
+                  "allOf": [
+                    {
+                      "maxLength": 8192
+                    },
+                    {
+                      "pattern": "^[^\\r\\n]*$"
+                    }
+                  ]
+                }
+              },
+              "required": [
+                "name",
+                "value"
+              ],
+              "additionalProperties": false
+            },
+            "allOf": [
+              {
+                "maxItems": 100
+              }
+            ]
+          },
+          "attachments": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "filename": {
+                  "type": "string",
+                  "allOf": [
+                    {
+                      "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
+                    },
+                    {
+                      "minLength": 1
+                    },
+                    {
+                      "maxLength": 255
+                    }
+                  ]
+                },
+                "mediaType": {
+                  "type": "string",
+                  "allOf": [
+                    {
+                      "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
+                    },
+                    {
+                      "minLength": 1
+                    },
+                    {
+                      "maxLength": 255
+                    },
+                    {
+                      "pattern": "^[A-Za-z0-9!#$&^_.+-]+\\/[A-Za-z0-9!#$&^_.+-]+(?:\\s*;\\s*[A-Za-z0-9!#$&^_.+-]+=(?:[A-Za-z0-9!#$&^_.+-]+|\"[^\"\\r\\n]*\"))*$"
+                    }
+                  ]
+                },
+                "disposition": {
+                  "type": "string",
+                  "enum": [
+                    "attachment",
+                    "inline"
+                  ]
+                },
+                "contentId": {
+                  "type": "string",
+                  "allOf": [
+                    {
+                      "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
+                    },
+                    {
+                      "minLength": 1
+                    },
+                    {
+                      "maxLength": 998
+                    }
+                  ]
+                },
+                "content": {
+                  "type": "string",
+                  "format": "byte",
+                  "contentEncoding": "base64"
+                }
+              },
+              "required": [
+                "filename",
+                "mediaType",
+                "content"
+              ],
+              "additionalProperties": false
+            },
+            "allOf": [
+              {
+                "maxItems": 100
+              }
+            ]
+          }
+        },
+        "required": [
+          "to",
+          "subject"
+        ],
+        "additionalProperties": false
+      },
+      "ReplyEmailRequest": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string"
+          },
+          "html": {
+            "type": "string"
+          },
+          "headers": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "allOf": [
+                    {
+                      "minLength": 1
+                    },
+                    {
+                      "maxLength": 78
+                    },
+                    {
+                      "pattern": "^[!#$%&'*+.^_`|~0-9A-Za-z-]+$"
+                    }
+                  ]
+                },
+                "value": {
+                  "type": "string",
+                  "allOf": [
+                    {
+                      "maxLength": 8192
+                    },
+                    {
+                      "pattern": "^[^\\r\\n]*$"
+                    }
+                  ]
+                }
+              },
+              "required": [
+                "name",
+                "value"
+              ],
+              "additionalProperties": false
+            },
+            "allOf": [
+              {
+                "maxItems": 100
+              }
+            ]
+          },
+          "attachments": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "filename": {
+                  "type": "string",
+                  "allOf": [
+                    {
+                      "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
+                    },
+                    {
+                      "minLength": 1
+                    },
+                    {
+                      "maxLength": 255
+                    }
+                  ]
+                },
+                "mediaType": {
+                  "type": "string",
+                  "allOf": [
+                    {
+                      "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
+                    },
+                    {
+                      "minLength": 1
+                    },
+                    {
+                      "maxLength": 255
+                    },
+                    {
+                      "pattern": "^[A-Za-z0-9!#$&^_.+-]+\\/[A-Za-z0-9!#$&^_.+-]+(?:\\s*;\\s*[A-Za-z0-9!#$&^_.+-]+=(?:[A-Za-z0-9!#$&^_.+-]+|\"[^\"\\r\\n]*\"))*$"
+                    }
+                  ]
+                },
+                "disposition": {
+                  "type": "string",
+                  "enum": [
+                    "attachment",
+                    "inline"
+                  ]
+                },
+                "contentId": {
+                  "type": "string",
+                  "allOf": [
+                    {
+                      "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
+                    },
+                    {
+                      "minLength": 1
+                    },
+                    {
+                      "maxLength": 998
+                    }
+                  ]
+                },
+                "content": {
+                  "type": "string",
+                  "format": "byte",
+                  "contentEncoding": "base64"
+                }
+              },
+              "required": [
+                "filename",
+                "mediaType",
+                "content"
+              ],
+              "additionalProperties": false
+            },
+            "allOf": [
+              {
+                "maxItems": 100
+              }
+            ]
+          }
+        },
+        "additionalProperties": false
+      },
+      "EmailMessageEnvelope": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "allOf": [
+                  {
+                    "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
+                  },
+                  {
+                    "minLength": 1
+                  },
+                  {
+                    "maxLength": 200
+                  },
+                  {
+                    "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
+                  }
+                ]
+              },
+              "environment": {
+                "type": "string",
+                "enum": [
+                  "test",
+                  "live"
+                ]
+              },
+              "direction": {
+                "type": "string",
+                "enum": [
+                  "inbound",
+                  "outbound"
+                ]
+              },
+              "status": {
+                "type": "string",
+                "enum": [
+                  "received",
+                  "workflow_event_created",
+                  "reserved",
+                  "sending",
+                  "captured",
+                  "accepted",
+                  "partially_accepted",
+                  "delivery_unknown",
+                  "failed"
+                ]
+              },
+              "routeId": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "allOf": [
+                      {
+                        "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
+                      },
+                      {
+                        "minLength": 1
+                      },
+                      {
+                        "maxLength": 200
+                      },
+                      {
+                        "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "workflowId": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "allOf": [
+                      {
+                        "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
+                      },
+                      {
+                        "minLength": 1
+                      },
+                      {
+                        "maxLength": 200
+                      },
+                      {
+                        "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "from": {
+                "type": "string",
+                "allOf": [
+                  {
+                    "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
+                  }
+                ]
+              },
+              "to": {
+                "type": "array",
+                "prefixItems": [
+                  {
+                    "type": "string",
+                    "allOf": [
+                      {
+                        "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
+                      }
+                    ]
+                  }
+                ],
+                "minItems": 1,
+                "items": {
+                  "type": "string",
+                  "allOf": [
+                    {
+                      "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
+                    }
+                  ]
+                }
+              },
+              "cc": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "allOf": [
+                    {
+                      "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
+                    }
+                  ]
+                }
+              },
+              "bcc": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "allOf": [
+                    {
+                      "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
+                    }
+                  ]
+                }
+              },
+              "subject": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "sizeBytes": {
+                "type": "integer",
+                "allOf": [
+                  {
+                    "minimum": 0
+                  }
+                ]
+              },
+              "providerMessageId": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "allOf": [
+                      {
+                        "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
+                      },
+                      {
+                        "minLength": 1
+                      },
+                      {
+                        "maxLength": 998
+                      }
+                    ]
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "sentAt": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "receivedAt": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "createdAt": {
+                "type": "string"
+              },
+              "updatedAt": {
+                "type": "string"
+              },
+              "recipients": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "allOf": [
+                        {
+                          "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
+                        },
+                        {
+                          "minLength": 1
+                        },
+                        {
+                          "maxLength": 200
+                        },
+                        {
+                          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
+                        }
+                      ]
+                    },
+                    "kind": {
+                      "type": "string",
+                      "enum": [
+                        "to",
+                        "cc",
+                        "bcc"
+                      ]
+                    },
+                    "address": {
+                      "type": "string",
+                      "allOf": [
+                        {
+                          "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
+                        }
+                      ]
+                    },
+                    "status": {
+                      "type": "string",
+                      "enum": [
+                        "pending",
+                        "captured",
+                        "queued",
+                        "delivered",
+                        "permanent_bounce",
+                        "failed"
+                      ]
+                    },
+                    "createdAt": {
+                      "type": "string"
+                    },
+                    "updatedAt": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "kind",
+                    "address",
+                    "status",
+                    "createdAt",
+                    "updatedAt"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            },
+            "required": [
+              "id",
+              "environment",
+              "direction",
+              "status",
+              "routeId",
+              "workflowId",
+              "from",
+              "to",
+              "cc",
+              "bcc",
+              "subject",
+              "sizeBytes",
+              "providerMessageId",
+              "sentAt",
+              "receivedAt",
+              "createdAt",
+              "updatedAt",
+              "recipients"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "message"
+        ],
+        "additionalProperties": false
+      },
+      "EmailMessagePage": {
+        "type": "object",
+        "properties": {
+          "cursor": {
+            "anyOf": [
+              {
+                "type": "string",
+                "allOf": [
+                  {
+                    "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
+                  },
+                  {
+                    "minLength": 1
+                  },
+                  {
+                    "maxLength": 2048
+                  },
+                  {
+                    "pattern": "^[A-Za-z0-9_-]+$"
+                  }
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "allOf": [
+                    {
+                      "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
+                    },
+                    {
+                      "minLength": 1
+                    },
+                    {
+                      "maxLength": 200
+                    },
+                    {
+                      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
+                    }
+                  ]
+                },
+                "environment": {
+                  "type": "string",
+                  "enum": [
+                    "test",
+                    "live"
+                  ]
+                },
+                "direction": {
+                  "type": "string",
+                  "enum": [
+                    "inbound",
+                    "outbound"
+                  ]
+                },
+                "status": {
+                  "type": "string",
+                  "enum": [
+                    "received",
+                    "workflow_event_created",
+                    "reserved",
+                    "sending",
+                    "captured",
+                    "accepted",
+                    "partially_accepted",
+                    "delivery_unknown",
+                    "failed"
+                  ]
+                },
+                "routeId": {
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "allOf": [
+                        {
+                          "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
+                        },
+                        {
+                          "minLength": 1
+                        },
+                        {
+                          "maxLength": 200
+                        },
+                        {
+                          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "workflowId": {
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "allOf": [
+                        {
+                          "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
+                        },
+                        {
+                          "minLength": 1
+                        },
+                        {
+                          "maxLength": 200
+                        },
+                        {
+                          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "from": {
+                  "type": "string",
+                  "allOf": [
+                    {
+                      "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
+                    }
+                  ]
+                },
+                "to": {
+                  "type": "array",
+                  "prefixItems": [
+                    {
+                      "type": "string",
+                      "allOf": [
+                        {
+                          "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
+                        }
+                      ]
+                    }
+                  ],
+                  "minItems": 1,
+                  "items": {
+                    "type": "string",
+                    "allOf": [
+                      {
+                        "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
+                      }
+                    ]
+                  }
+                },
+                "cc": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "allOf": [
+                      {
+                        "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
+                      }
+                    ]
+                  }
+                },
+                "bcc": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "allOf": [
+                      {
+                        "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
+                      }
+                    ]
+                  }
+                },
+                "subject": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "sizeBytes": {
+                  "type": "integer",
+                  "allOf": [
+                    {
+                      "minimum": 0
+                    }
+                  ]
+                },
+                "providerMessageId": {
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "allOf": [
+                        {
+                          "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
+                        },
+                        {
+                          "minLength": 1
+                        },
+                        {
+                          "maxLength": 998
+                        }
+                      ]
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "sentAt": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "receivedAt": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "createdAt": {
+                  "type": "string"
+                },
+                "updatedAt": {
+                  "type": "string"
+                },
+                "recipients": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "allOf": [
+                          {
+                            "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
+                          },
+                          {
+                            "minLength": 1
+                          },
+                          {
+                            "maxLength": 200
+                          },
+                          {
+                            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
+                          }
+                        ]
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "to",
+                          "cc",
+                          "bcc"
+                        ]
+                      },
+                      "address": {
+                        "type": "string",
+                        "allOf": [
+                          {
+                            "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
+                          }
+                        ]
+                      },
+                      "status": {
+                        "type": "string",
+                        "enum": [
+                          "pending",
+                          "captured",
+                          "queued",
+                          "delivered",
+                          "permanent_bounce",
+                          "failed"
+                        ]
+                      },
+                      "createdAt": {
+                        "type": "string"
+                      },
+                      "updatedAt": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "kind",
+                      "address",
+                      "status",
+                      "createdAt",
+                      "updatedAt"
+                    ],
+                    "additionalProperties": false
+                  }
+                }
+              },
+              "required": [
+                "id",
+                "environment",
+                "direction",
+                "status",
+                "routeId",
+                "workflowId",
+                "from",
+                "to",
+                "cc",
+                "bcc",
+                "subject",
+                "sizeBytes",
+                "providerMessageId",
+                "sentAt",
+                "receivedAt",
+                "createdAt",
+                "updatedAt",
+                "recipients"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "cursor",
+          "items"
+        ],
+        "additionalProperties": false
+      },
+      "ReceivedContentEnvelope": {
+        "type": "object",
+        "properties": {
+          "content": {
+            "type": "object",
+            "properties": {
+              "messageId": {
+                "type": "string",
+                "allOf": [
+                  {
+                    "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
+                  },
+                  {
+                    "minLength": 1
+                  },
+                  {
+                    "maxLength": 200
+                  },
+                  {
+                    "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
+                  }
+                ]
+              },
+              "routeId": {
+                "type": "string",
+                "allOf": [
+                  {
+                    "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
+                  },
+                  {
+                    "minLength": 1
+                  },
+                  {
+                    "maxLength": 200
+                  },
+                  {
+                    "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
+                  }
+                ]
+              },
+              "envelopeFrom": {
+                "type": "string",
+                "allOf": [
+                  {
+                    "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
+                  }
+                ]
+              },
+              "envelopeTo": {
+                "type": "array",
+                "prefixItems": [
+                  {
+                    "type": "string",
+                    "allOf": [
+                      {
+                        "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
+                      }
+                    ]
+                  }
+                ],
+                "minItems": 1,
+                "items": {
+                  "type": "string",
+                  "allOf": [
+                    {
+                      "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
+                    }
+                  ]
+                }
+              },
+              "headerFrom": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "allOf": [
+                    {
+                      "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
+                    }
+                  ]
+                }
+              },
+              "replyTo": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "allOf": [
+                    {
+                      "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
+                    }
+                  ]
+                }
+              },
+              "subject": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "text": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "html": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "threading": {
+                "type": "object",
+                "properties": {
+                  "messageId": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "allOf": [
+                          {
+                            "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
+                          },
+                          {
+                            "minLength": 1
+                          },
+                          {
+                            "maxLength": 900
+                          },
+                          {
+                            "pattern": "^<[^<>\\r\\n]+>$"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "inReplyTo": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "allOf": [
+                          {
+                            "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
+                          },
+                          {
+                            "minLength": 1
+                          },
+                          {
+                            "maxLength": 900
+                          },
+                          {
+                            "pattern": "^<[^<>\\r\\n]+>$"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "references": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "allOf": [
+                        {
+                          "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
+                        },
+                        {
+                          "minLength": 1
+                        },
+                        {
+                          "maxLength": 900
+                        },
+                        {
+                          "pattern": "^<[^<>\\r\\n]+>$"
+                        }
+                      ]
+                    }
+                  }
+                },
+                "required": [
+                  "messageId",
+                  "inReplyTo",
+                  "references"
+                ],
+                "additionalProperties": false
+              },
+              "automation": {
+                "type": "object",
+                "properties": {
+                  "autoSubmitted": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "enum": [
+                          "no",
+                          "automatic"
+                        ]
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "precedence": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "enum": [
+                          "bulk",
+                          "list",
+                          "junk",
+                          "other"
+                        ]
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "listId": {
+                    "type": "boolean"
+                  },
+                  "responseSuppression": {
+                    "type": "boolean"
+                  }
+                },
+                "required": [
+                  "autoSubmitted",
+                  "precedence",
+                  "listId",
+                  "responseSuppression"
+                ],
+                "additionalProperties": false
+              },
+              "attachments": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "allOf": [
+                        {
+                          "pattern": "^v1_[0-9]+$"
+                        }
+                      ]
+                    },
+                    "filename": {
+                      "anyOf": [
+                        {
+                          "type": "string",
+                          "allOf": [
+                            {
+                              "minLength": 1
+                            },
+                            {
+                              "maxLength": 255
+                            }
+                          ]
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "mediaType": {
+                      "type": "string",
+                      "allOf": [
+                        {
+                          "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
+                        },
+                        {
+                          "minLength": 1
+                        },
+                        {
+                          "maxLength": 255
+                        },
+                        {
+                          "pattern": "^[A-Za-z0-9!#$&^_.+-]+\\/[A-Za-z0-9!#$&^_.+-]+(?:\\s*;\\s*[A-Za-z0-9!#$&^_.+-]+=(?:[A-Za-z0-9!#$&^_.+-]+|\"[^\"\\r\\n]*\"))*$"
+                        }
+                      ]
+                    },
+                    "disposition": {
+                      "anyOf": [
+                        {
+                          "type": "string",
+                          "enum": [
+                            "attachment",
+                            "inline"
+                          ]
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "contentId": {
+                      "anyOf": [
+                        {
+                          "type": "string",
+                          "allOf": [
+                            {
+                              "minLength": 1
+                            },
+                            {
+                              "maxLength": 998
+                            }
+                          ]
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "sizeBytes": {
+                      "type": "integer",
+                      "allOf": [
+                        {
+                          "minimum": 0
+                        }
+                      ]
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "filename",
+                    "mediaType",
+                    "disposition",
+                    "contentId",
+                    "sizeBytes"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            },
+            "required": [
+              "messageId",
+              "routeId",
+              "envelopeFrom",
+              "envelopeTo",
+              "headerFrom",
+              "replyTo",
+              "subject",
+              "text",
+              "html",
+              "threading",
+              "automation",
+              "attachments"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "content"
+        ],
+        "additionalProperties": false
+      },
+      "EmailRouteList": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "allOf": [
+                    {
+                      "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
+                    },
+                    {
+                      "minLength": 1
+                    },
+                    {
+                      "maxLength": 200
+                    },
+                    {
+                      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
+                    }
+                  ]
+                },
+                "environment": {
+                  "type": "string",
+                  "enum": [
+                    "test",
+                    "live"
+                  ]
+                },
+                "address": {
+                  "type": "string",
+                  "allOf": [
+                    {
+                      "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
+                    }
+                  ]
+                },
+                "mailboxHandle": {
+                  "type": "string",
+                  "allOf": [
+                    {
+                      "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
+                    }
+                  ]
+                },
+                "inbound": {
+                  "anyOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "kind": {
+                          "type": "string",
+                          "enum": [
+                            "store"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "kind"
+                      ],
+                      "additionalProperties": false
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "kind": {
+                          "type": "string",
+                          "enum": [
+                            "trigger"
+                          ]
+                        },
+                        "workflowId": {
+                          "type": "string",
+                          "allOf": [
+                            {
+                              "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
+                            },
+                            {
+                              "minLength": 1
+                            },
+                            {
+                              "maxLength": 200
+                            },
+                            {
+                              "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
+                            }
+                          ]
+                        }
+                      },
+                      "required": [
+                        "kind",
+                        "workflowId"
+                      ],
+                      "additionalProperties": false
+                    }
+                  ]
+                },
+                "outbound": {
+                  "anyOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "kind": {
+                          "type": "string",
+                          "enum": [
+                            "disabled"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "kind"
+                      ],
+                      "additionalProperties": false
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "kind": {
+                          "type": "string",
+                          "enum": [
+                            "sender"
+                          ]
+                        },
+                        "role": {
+                          "type": "string",
+                          "enum": [
+                            "default",
+                            "alternate"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "kind",
+                        "role"
+                      ],
+                      "additionalProperties": false
+                    }
+                  ]
+                },
+                "status": {
+                  "type": "string",
+                  "enum": [
+                    "active",
+                    "paused",
+                    "disabled"
+                  ]
+                },
+                "revision": {
+                  "type": "integer",
+                  "allOf": [
+                    {
+                      "exclusiveMinimum": 0
+                    }
+                  ]
+                },
+                "createdAt": {
+                  "type": "string"
+                },
+                "updatedAt": {
+                  "type": "string"
+                },
+                "disabledAt": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                }
+              },
+              "required": [
+                "id",
+                "environment",
+                "address",
+                "mailboxHandle",
+                "inbound",
+                "outbound",
+                "status",
+                "revision",
+                "createdAt",
+                "updatedAt",
+                "disabledAt"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "items"
+        ],
+        "additionalProperties": false
+      },
+      "ProvisionRouteRequest": {
+        "type": "object",
+        "properties": {
+          "mailboxHandle": {
+            "type": "string",
+            "allOf": [
+              {
+                "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
+              }
+            ]
+          },
+          "inbound": {
+            "anyOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "kind": {
+                    "type": "string",
+                    "enum": [
+                      "store"
+                    ]
+                  }
+                },
+                "required": [
+                  "kind"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "kind": {
+                    "type": "string",
+                    "enum": [
+                      "trigger"
+                    ]
+                  },
+                  "workflowId": {
+                    "type": "string",
+                    "allOf": [
+                      {
+                        "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
+                      },
+                      {
+                        "minLength": 1
+                      },
+                      {
+                        "maxLength": 200
+                      },
+                      {
+                        "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
+                      }
+                    ]
+                  }
+                },
+                "required": [
+                  "kind",
+                  "workflowId"
+                ],
+                "additionalProperties": false
+              }
+            ]
+          },
+          "outbound": {
+            "anyOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "kind": {
+                    "type": "string",
+                    "enum": [
+                      "disabled"
+                    ]
+                  }
+                },
+                "required": [
+                  "kind"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "kind": {
+                    "type": "string",
+                    "enum": [
+                      "sender"
+                    ]
+                  },
+                  "role": {
+                    "type": "string",
+                    "enum": [
+                      "default",
+                      "alternate"
+                    ]
+                  }
+                },
+                "required": [
+                  "kind",
+                  "role"
+                ],
+                "additionalProperties": false
+              }
+            ]
+          }
+        },
+        "required": [
+          "inbound",
+          "outbound"
+        ],
+        "additionalProperties": false
+      },
+      "EmailRouteEnvelope": {
+        "type": "object",
+        "properties": {
+          "route": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "allOf": [
+                  {
+                    "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
+                  },
+                  {
+                    "minLength": 1
+                  },
+                  {
+                    "maxLength": 200
+                  },
+                  {
+                    "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
+                  }
+                ]
+              },
+              "environment": {
+                "type": "string",
+                "enum": [
+                  "test",
+                  "live"
+                ]
+              },
+              "address": {
+                "type": "string",
+                "allOf": [
+                  {
+                    "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
+                  }
+                ]
+              },
+              "mailboxHandle": {
+                "type": "string",
+                "allOf": [
+                  {
+                    "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
+                  }
+                ]
+              },
+              "inbound": {
+                "anyOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "store"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "kind"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "trigger"
+                        ]
+                      },
+                      "workflowId": {
+                        "type": "string",
+                        "allOf": [
+                          {
+                            "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
+                          },
+                          {
+                            "minLength": 1
+                          },
+                          {
+                            "maxLength": 200
+                          },
+                          {
+                            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
+                          }
+                        ]
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "workflowId"
+                    ],
+                    "additionalProperties": false
+                  }
+                ]
+              },
+              "outbound": {
+                "anyOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "disabled"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "kind"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "sender"
+                        ]
+                      },
+                      "role": {
+                        "type": "string",
+                        "enum": [
+                          "default",
+                          "alternate"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "role"
+                    ],
+                    "additionalProperties": false
+                  }
+                ]
+              },
+              "status": {
+                "type": "string",
+                "enum": [
+                  "active",
+                  "paused",
+                  "disabled"
+                ]
+              },
+              "revision": {
+                "type": "integer",
+                "allOf": [
+                  {
+                    "exclusiveMinimum": 0
+                  }
+                ]
+              },
+              "createdAt": {
+                "type": "string"
+              },
+              "updatedAt": {
+                "type": "string"
+              },
+              "disabledAt": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "id",
+              "environment",
+              "address",
+              "mailboxHandle",
+              "inbound",
+              "outbound",
+              "status",
+              "revision",
+              "createdAt",
+              "updatedAt",
+              "disabledAt"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "route"
+        ],
+        "additionalProperties": false
+      },
+      "RouteRotation": {
+        "type": "object",
+        "properties": {
+          "previous": {
+            "$ref": "#/$defs/Objects_"
+          },
+          "replacement": {
+            "$ref": "#/$defs/Objects_"
+          }
+        },
+        "required": [
+          "previous",
+          "replacement"
+        ],
+        "additionalProperties": false,
+        "$defs": {
+          "Objects_": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "allOf": [
+                  {
+                    "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
+                  },
+                  {
+                    "minLength": 1
+                  },
+                  {
+                    "maxLength": 200
+                  },
+                  {
+                    "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
+                  }
+                ]
+              },
+              "environment": {
+                "type": "string",
+                "enum": [
+                  "test",
+                  "live"
+                ]
+              },
+              "address": {
+                "type": "string",
+                "allOf": [
+                  {
+                    "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
+                  }
+                ]
+              },
+              "mailboxHandle": {
+                "type": "string",
+                "allOf": [
+                  {
+                    "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
+                  }
+                ]
+              },
+              "inbound": {
+                "anyOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "store"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "kind"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "trigger"
+                        ]
+                      },
+                      "workflowId": {
+                        "type": "string",
+                        "allOf": [
+                          {
+                            "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
+                          },
+                          {
+                            "minLength": 1
+                          },
+                          {
+                            "maxLength": 200
+                          },
+                          {
+                            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
+                          }
+                        ]
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "workflowId"
+                    ],
+                    "additionalProperties": false
+                  }
+                ]
+              },
+              "outbound": {
+                "anyOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "disabled"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "kind"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "sender"
+                        ]
+                      },
+                      "role": {
+                        "type": "string",
+                        "enum": [
+                          "default",
+                          "alternate"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "role"
+                    ],
+                    "additionalProperties": false
+                  }
+                ]
+              },
+              "status": {
+                "type": "string",
+                "enum": [
+                  "active",
+                  "paused",
+                  "disabled"
+                ]
+              },
+              "revision": {
+                "type": "integer",
+                "allOf": [
+                  {
+                    "exclusiveMinimum": 0
+                  }
+                ]
+              },
+              "createdAt": {
+                "type": "string"
+              },
+              "updatedAt": {
+                "type": "string"
+              },
+              "disabledAt": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "id",
+              "environment",
+              "address",
+              "mailboxHandle",
+              "inbound",
+              "outbound",
+              "status",
+              "revision",
+              "createdAt",
+              "updatedAt",
+              "disabledAt"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "EmailTestRecipientList": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "allOf": [
+                    {
+                      "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
+                    },
+                    {
+                      "minLength": 1
+                    },
+                    {
+                      "maxLength": 200
+                    },
+                    {
+                      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
+                    }
+                  ]
+                },
+                "address": {
+                  "type": "string",
+                  "allOf": [
+                    {
+                      "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
+                    }
+                  ]
+                },
+                "status": {
+                  "type": "string",
+                  "enum": [
+                    "pending",
+                    "verified",
+                    "failed"
+                  ]
+                },
+                "createdAt": {
+                  "type": "string"
+                },
+                "updatedAt": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "id",
+                "address",
+                "status",
+                "createdAt",
+                "updatedAt"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "items"
+        ],
+        "additionalProperties": false
+      },
+      "AddTestRecipientRequest": {
+        "type": "object",
+        "properties": {
+          "address": {
+            "type": "string",
+            "allOf": [
+              {
+                "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
+              }
+            ]
+          }
+        },
+        "required": [
+          "address"
+        ],
+        "additionalProperties": false
+      },
+      "EmailTestRecipientEnvelope": {
+        "type": "object",
+        "properties": {
+          "recipient": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "allOf": [
+                  {
+                    "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
+                  },
+                  {
+                    "minLength": 1
+                  },
+                  {
+                    "maxLength": 200
+                  },
+                  {
+                    "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
+                  }
+                ]
+              },
+              "address": {
+                "type": "string",
+                "allOf": [
+                  {
+                    "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
+                  }
+                ]
+              },
+              "status": {
+                "type": "string",
+                "enum": [
+                  "pending",
+                  "verified",
+                  "failed"
+                ]
+              },
+              "createdAt": {
+                "type": "string"
+              },
+              "updatedAt": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "address",
+              "status",
+              "createdAt",
+              "updatedAt"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "recipient"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "token"
+      }
+    }
+  }
+}
