@@ -7,6 +7,7 @@ const sourceRoot = path.resolve("src")
 const expectedRootNamespaces = new Set([
   "Address",
   "Email",
+  "Identifiers",
   "Inbound",
   "Maintenance",
   "Message",

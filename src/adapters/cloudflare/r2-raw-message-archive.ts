@@ -88,8 +88,26 @@ const identityBytes = (input: PutRawMessageInput): Uint8Array =>
     input.messageId,
   ].join("\u0000"))
 
-const objectKey = (identityDigest: string): string =>
-  `email-raw/v1/${identityDigest}`
+const KeyPrefixPattern = /^(?:[A-Za-z0-9._-]+\/)*$/u
+
+/** Host-owned key namespace placed in front of every archived object key. */
+export interface R2RawMessageArchiveOptions {
+  /** Empty, or one or more `segment/` groups such as `tenants/alpha/`. */
+  readonly keyPrefix?: string
+}
+
+const keyPrefixOf = (options: R2RawMessageArchiveOptions): string => {
+  const prefix = options.keyPrefix ?? ""
+  if (!KeyPrefixPattern.test(prefix)) {
+    throw new Error(
+      "R2 raw-message archive keyPrefix must be empty or `segment/` groups",
+    )
+  }
+  return prefix
+}
+
+const objectKey = (prefix: string, identityDigest: string): string =>
+  `${prefix}email-raw/v1/${identityDigest}`
 
 const rawReference = (
   identityDigest: string,
@@ -132,7 +150,11 @@ const hasExpectedMetadata = (
   object.customMetadata?.[VersionMetadata] === FormatVersion
 
 const prepareWrite = Effect.fn("Email.Cloudflare.R2.prepareWrite")(
-  function*(input: PutRawMessageInput, operation: ArchiveWriteOperation) {
+  function*(
+    input: PutRawMessageInput,
+    operation: ArchiveWriteOperation,
+    prefix: string,
+  ) {
     const [identityDigest, actualContentDigest] = yield* Effect.all([
       sha256Hex(identityBytes(input), operation),
       sha256Hex(input.content, operation),
@@ -142,7 +164,7 @@ const prepareWrite = Effect.fn("Email.Cloudflare.R2.prepareWrite")(
     }
     const sizeBytes = input.content.byteLength
     const prepared: PreparedWrite = {
-      key: objectKey(identityDigest),
+      key: objectKey(prefix, identityDigest),
       ref: rawReference(identityDigest, input.sha256, sizeBytes),
       contentDigest: input.sha256,
       sizeBytes,
@@ -154,17 +176,19 @@ const prepareWrite = Effect.fn("Email.Cloudflare.R2.prepareWrite")(
 /** Build the R2-backed RawMessageArchive service without exposing object keys. */
 export const makeR2RawMessageArchive = (
   bucket: R2BucketLike,
+  options: R2RawMessageArchiveOptions = {},
 ): RawMessageArchive["Service"] => {
+  const prefix = keyPrefixOf(options)
   const referenceFor = Effect.fn("Email.Cloudflare.R2.referenceFor")(
     function*(input: PutRawMessageInput) {
-      return (yield* prepareWrite(input, "reference")).ref
+      return (yield* prepareWrite(input, "reference", prefix)).ref
     },
   )
 
   const put = Effect.fn("Email.Cloudflare.R2.put")(function*(
     input: PutRawMessageInput,
   ) {
-    const prepared = yield* prepareWrite(input, "put")
+    const prepared = yield* prepareWrite(input, "put", prefix)
     const existing = yield* Effect.tryPromise({
       try: () => bucket.head(prepared.key),
       catch: () => archiveFailure("put"),
@@ -227,7 +251,7 @@ export const makeR2RawMessageArchive = (
   ) {
     const parsed = yield* parseReference(ref, "get")
     const object = yield* Effect.tryPromise({
-      try: () => bucket.get(objectKey(parsed.identityDigest)),
+      try: () => bucket.get(objectKey(prefix, parsed.identityDigest)),
       catch: () => archiveFailure("get"),
     })
     if (object === null) return Option.none<RawMime>()
@@ -253,7 +277,7 @@ export const makeR2RawMessageArchive = (
   ) {
     const parsed = yield* parseReference(ref, "remove")
     yield* Effect.tryPromise({
-      try: () => bucket.delete(objectKey(parsed.identityDigest)),
+      try: () => bucket.delete(objectKey(prefix, parsed.identityDigest)),
       catch: () => archiveFailure("remove"),
     })
   })
@@ -264,5 +288,6 @@ export const makeR2RawMessageArchive = (
 /** Provide RawMessageArchive through one structural Cloudflare R2 binding. */
 export const r2RawMessageArchiveLayer = (
   bucket: R2BucketLike,
+  options: R2RawMessageArchiveOptions = {},
 ): Layer.Layer<RawMessageArchive> =>
-  Layer.succeed(RawMessageArchive, makeR2RawMessageArchive(bucket))
+  Layer.succeed(RawMessageArchive, makeR2RawMessageArchive(bucket, options))

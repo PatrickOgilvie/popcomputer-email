@@ -130,7 +130,7 @@ The package callers are:
 
 - TypeScript, ESM, strict compiler options, Node.js 22+, and Web platform
   streams/crypto.
-- Effect `4.0.0-rc.109` for schemas, services, layers, time, schedules, and
+- Effect `4.0.0-rc.116` for schemas, services, layers, time, schedules, and
   typed errors.
 - Cloudflare Workers for the first production adapter set.
 - D1 cannot transact with R2 or an HTTP provider.
@@ -230,6 +230,7 @@ The root exports namespaces only:
 import {
   Address,
   Email,
+  Identifiers,
   Inbound,
   Maintenance,
   Message,

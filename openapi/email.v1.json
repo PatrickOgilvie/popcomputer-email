@@ -35,16 +35,10 @@
             "required": true,
             "schema": {
               "type": "string",
+              "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$",
+              "minLength": 1,
+              "maxLength": 200,
               "allOf": [
-                {
-                  "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
-                },
-                {
-                  "minLength": 1
-                },
-                {
-                  "maxLength": 200
-                },
                 {
                   "pattern": "^[\\x21-\\x7e]+$"
                 }
@@ -203,16 +197,10 @@
             "required": false,
             "schema": {
               "type": "string",
+              "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$",
+              "minLength": 1,
+              "maxLength": 2048,
               "allOf": [
-                {
-                  "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
-                },
-                {
-                  "minLength": 1
-                },
-                {
-                  "maxLength": 2048
-                },
                 {
                   "pattern": "^[A-Za-z0-9_-]+$"
                 }
@@ -319,16 +307,10 @@
             "required": true,
             "schema": {
               "type": "string",
+              "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$",
+              "minLength": 1,
+              "maxLength": 200,
               "allOf": [
-                {
-                  "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
-                },
-                {
-                  "minLength": 1
-                },
-                {
-                  "maxLength": 200
-                },
                 {
                   "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
                 }
@@ -457,16 +439,10 @@
             "required": true,
             "schema": {
               "type": "string",
+              "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$",
+              "minLength": 1,
+              "maxLength": 200,
               "allOf": [
-                {
-                  "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
-                },
-                {
-                  "minLength": 1
-                },
-                {
-                  "maxLength": 200
-                },
                 {
                   "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
                 }
@@ -479,11 +455,7 @@
             "required": true,
             "schema": {
               "type": "string",
-              "allOf": [
-                {
-                  "pattern": "^v1_[0-9]+$"
-                }
-              ]
+              "pattern": "^v1_[0-9]+$"
             }
           }
         ],
@@ -610,16 +582,10 @@
             "required": true,
             "schema": {
               "type": "string",
+              "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$",
+              "minLength": 1,
+              "maxLength": 200,
               "allOf": [
-                {
-                  "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
-                },
-                {
-                  "minLength": 1
-                },
-                {
-                  "maxLength": 200
-                },
                 {
                   "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
                 }
@@ -730,16 +696,10 @@
             "required": true,
             "schema": {
               "type": "string",
+              "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$",
+              "minLength": 1,
+              "maxLength": 200,
               "allOf": [
-                {
-                  "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
-                },
-                {
-                  "minLength": 1
-                },
-                {
-                  "maxLength": 200
-                },
                 {
                   "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
                 }
@@ -752,16 +712,10 @@
             "required": true,
             "schema": {
               "type": "string",
+              "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$",
+              "minLength": 1,
+              "maxLength": 200,
               "allOf": [
-                {
-                  "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
-                },
-                {
-                  "minLength": 1
-                },
-                {
-                  "maxLength": 200
-                },
                 {
                   "pattern": "^[\\x21-\\x7e]+$"
                 }
@@ -921,16 +875,10 @@
             "required": true,
             "schema": {
               "type": "string",
+              "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$",
+              "minLength": 1,
+              "maxLength": 200,
               "allOf": [
-                {
-                  "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
-                },
-                {
-                  "minLength": 1
-                },
-                {
-                  "maxLength": 200
-                },
                 {
                   "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
                 }
@@ -1112,16 +1060,10 @@
             "required": true,
             "schema": {
               "type": "string",
+              "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$",
+              "minLength": 1,
+              "maxLength": 200,
               "allOf": [
-                {
-                  "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
-                },
-                {
-                  "minLength": 1
-                },
-                {
-                  "maxLength": 200
-                },
                 {
                   "pattern": "^[\\x21-\\x7e]+$"
                 }
@@ -1250,16 +1192,10 @@
             "required": true,
             "schema": {
               "type": "string",
+              "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$",
+              "minLength": 1,
+              "maxLength": 200,
               "allOf": [
-                {
-                  "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
-                },
-                {
-                  "minLength": 1
-                },
-                {
-                  "maxLength": 200
-                },
                 {
                   "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
                 }
@@ -1388,16 +1324,10 @@
             "required": true,
             "schema": {
               "type": "string",
+              "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$",
+              "minLength": 1,
+              "maxLength": 200,
               "allOf": [
-                {
-                  "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
-                },
-                {
-                  "minLength": 1
-                },
-                {
-                  "maxLength": 200
-                },
                 {
                   "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
                 }
@@ -1526,16 +1456,10 @@
             "required": true,
             "schema": {
               "type": "string",
+              "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$",
+              "minLength": 1,
+              "maxLength": 200,
               "allOf": [
-                {
-                  "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
-                },
-                {
-                  "minLength": 1
-                },
-                {
-                  "maxLength": 200
-                },
                 {
                   "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
                 }
@@ -1548,16 +1472,10 @@
             "required": true,
             "schema": {
               "type": "string",
+              "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$",
+              "minLength": 1,
+              "maxLength": 200,
               "allOf": [
-                {
-                  "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
-                },
-                {
-                  "minLength": 1
-                },
-                {
-                  "maxLength": 200
-                },
                 {
                   "pattern": "^[\\x21-\\x7e]+$"
                 }
@@ -1676,16 +1594,10 @@
             "required": true,
             "schema": {
               "type": "string",
+              "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$",
+              "minLength": 1,
+              "maxLength": 200,
               "allOf": [
-                {
-                  "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
-                },
-                {
-                  "minLength": 1
-                },
-                {
-                  "maxLength": 200
-                },
                 {
                   "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
                 }
@@ -1877,16 +1789,10 @@
             "required": true,
             "schema": {
               "type": "string",
+              "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$",
+              "minLength": 1,
+              "maxLength": 200,
               "allOf": [
-                {
-                  "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
-                },
-                {
-                  "minLength": 1
-                },
-                {
-                  "maxLength": 200
-                },
                 {
                   "pattern": "^[\\x21-\\x7e]+$"
                 }
@@ -2015,16 +1921,10 @@
             "required": true,
             "schema": {
               "type": "string",
+              "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$",
+              "minLength": 1,
+              "maxLength": 200,
               "allOf": [
-                {
-                  "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
-                },
-                {
-                  "minLength": 1
-                },
-                {
-                  "maxLength": 200
-                },
                 {
                   "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
                 }
@@ -2037,16 +1937,10 @@
             "required": true,
             "schema": {
               "type": "string",
+              "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$",
+              "minLength": 1,
+              "maxLength": 200,
               "allOf": [
-                {
-                  "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
-                },
-                {
-                  "minLength": 1
-                },
-                {
-                  "maxLength": 200
-                },
                 {
                   "pattern": "^[\\x21-\\x7e]+$"
                 }
@@ -2194,57 +2088,37 @@
               },
               "message": {
                 "type": "string",
-                "allOf": [
-                  {
-                    "minLength": 1
-                  },
-                  {
-                    "maxLength": 500
-                  }
-                ]
+                "minLength": 1,
+                "maxLength": 500
               },
               "requestId": {
                 "type": "string",
-                "allOf": [
-                  {
-                    "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
-                  },
-                  {
-                    "minLength": 1
-                  },
-                  {
-                    "maxLength": 200
-                  }
-                ]
+                "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$",
+                "minLength": 1,
+                "maxLength": 200
               }
             },
             "required": [
               "code",
               "message"
             ],
-            "additionalProperties": false
+            "additionalProperties": true
           }
         },
         "required": [
           "error"
         ],
-        "additionalProperties": false
+        "additionalProperties": true
       },
       "SendEmailRequest": {
         "type": "object",
         "properties": {
           "fromRouteId": {
             "type": "string",
+            "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$",
+            "minLength": 1,
+            "maxLength": 200,
             "allOf": [
-              {
-                "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
-              },
-              {
-                "minLength": 1
-              },
-              {
-                "maxLength": 200
-              },
               {
                 "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
               }
@@ -2255,55 +2129,33 @@
             "prefixItems": [
               {
                 "type": "string",
-                "allOf": [
-                  {
-                    "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
-                  }
-                ]
+                "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
               }
             ],
             "minItems": 1,
             "items": {
               "type": "string",
-              "allOf": [
-                {
-                  "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
-                }
-              ]
+              "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
             }
           },
           "cc": {
             "type": "array",
             "items": {
               "type": "string",
-              "allOf": [
-                {
-                  "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
-                }
-              ]
+              "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
             }
           },
           "bcc": {
             "type": "array",
             "items": {
               "type": "string",
-              "allOf": [
-                {
-                  "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
-                }
-              ]
+              "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
             }
           },
           "subject": {
             "type": "string",
-            "allOf": [
-              {
-                "maxLength": 998
-              },
-              {
-                "pattern": "^[^\\r\\n]*$"
-              }
-            ]
+            "maxLength": 998,
+            "pattern": "^[^\\r\\n]*$"
           },
           "automation": {
             "type": "string",
@@ -2324,41 +2176,23 @@
               "properties": {
                 "name": {
                   "type": "string",
-                  "allOf": [
-                    {
-                      "minLength": 1
-                    },
-                    {
-                      "maxLength": 78
-                    },
-                    {
-                      "pattern": "^[!#$%&'*+.^_`|~0-9A-Za-z-]+$"
-                    }
-                  ]
+                  "minLength": 1,
+                  "maxLength": 78,
+                  "pattern": "^[!#$%&'*+.^_`|~0-9A-Za-z-]+$"
                 },
                 "value": {
                   "type": "string",
-                  "allOf": [
-                    {
-                      "maxLength": 8192
-                    },
-                    {
-                      "pattern": "^[^\\r\\n]*$"
-                    }
-                  ]
+                  "maxLength": 8192,
+                  "pattern": "^[^\\r\\n]*$"
                 }
               },
               "required": [
                 "name",
                 "value"
               ],
-              "additionalProperties": false
+              "additionalProperties": true
             },
-            "allOf": [
-              {
-                "maxItems": 100
-              }
-            ]
+            "maxItems": 100
           },
           "attachments": {
             "type": "array",
@@ -2367,30 +2201,16 @@
               "properties": {
                 "filename": {
                   "type": "string",
-                  "allOf": [
-                    {
-                      "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
-                    },
-                    {
-                      "minLength": 1
-                    },
-                    {
-                      "maxLength": 255
-                    }
-                  ]
+                  "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$",
+                  "minLength": 1,
+                  "maxLength": 255
                 },
                 "mediaType": {
                   "type": "string",
+                  "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$",
+                  "minLength": 1,
+                  "maxLength": 255,
                   "allOf": [
-                    {
-                      "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
-                    },
-                    {
-                      "minLength": 1
-                    },
-                    {
-                      "maxLength": 255
-                    },
                     {
                       "pattern": "^[A-Za-z0-9!#$&^_.+-]+\\/[A-Za-z0-9!#$&^_.+-]+(?:\\s*;\\s*[A-Za-z0-9!#$&^_.+-]+=(?:[A-Za-z0-9!#$&^_.+-]+|\"[^\"\\r\\n]*\"))*$"
                     }
@@ -2405,17 +2225,9 @@
                 },
                 "contentId": {
                   "type": "string",
-                  "allOf": [
-                    {
-                      "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
-                    },
-                    {
-                      "minLength": 1
-                    },
-                    {
-                      "maxLength": 998
-                    }
-                  ]
+                  "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$",
+                  "minLength": 1,
+                  "maxLength": 998
                 },
                 "content": {
                   "type": "string",
@@ -2428,20 +2240,16 @@
                 "mediaType",
                 "content"
               ],
-              "additionalProperties": false
+              "additionalProperties": true
             },
-            "allOf": [
-              {
-                "maxItems": 100
-              }
-            ]
+            "maxItems": 100
           }
         },
         "required": [
           "to",
           "subject"
         ],
-        "additionalProperties": false
+        "additionalProperties": true
       },
       "ReplyEmailRequest": {
         "type": "object",
@@ -2459,41 +2267,23 @@
               "properties": {
                 "name": {
                   "type": "string",
-                  "allOf": [
-                    {
-                      "minLength": 1
-                    },
-                    {
-                      "maxLength": 78
-                    },
-                    {
-                      "pattern": "^[!#$%&'*+.^_`|~0-9A-Za-z-]+$"
-                    }
-                  ]
+                  "minLength": 1,
+                  "maxLength": 78,
+                  "pattern": "^[!#$%&'*+.^_`|~0-9A-Za-z-]+$"
                 },
                 "value": {
                   "type": "string",
-                  "allOf": [
-                    {
-                      "maxLength": 8192
-                    },
-                    {
-                      "pattern": "^[^\\r\\n]*$"
-                    }
-                  ]
+                  "maxLength": 8192,
+                  "pattern": "^[^\\r\\n]*$"
                 }
               },
               "required": [
                 "name",
                 "value"
               ],
-              "additionalProperties": false
+              "additionalProperties": true
             },
-            "allOf": [
-              {
-                "maxItems": 100
-              }
-            ]
+            "maxItems": 100
           },
           "attachments": {
             "type": "array",
@@ -2502,30 +2292,16 @@
               "properties": {
                 "filename": {
                   "type": "string",
-                  "allOf": [
-                    {
-                      "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
-                    },
-                    {
-                      "minLength": 1
-                    },
-                    {
-                      "maxLength": 255
-                    }
-                  ]
+                  "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$",
+                  "minLength": 1,
+                  "maxLength": 255
                 },
                 "mediaType": {
                   "type": "string",
+                  "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$",
+                  "minLength": 1,
+                  "maxLength": 255,
                   "allOf": [
-                    {
-                      "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
-                    },
-                    {
-                      "minLength": 1
-                    },
-                    {
-                      "maxLength": 255
-                    },
                     {
                       "pattern": "^[A-Za-z0-9!#$&^_.+-]+\\/[A-Za-z0-9!#$&^_.+-]+(?:\\s*;\\s*[A-Za-z0-9!#$&^_.+-]+=(?:[A-Za-z0-9!#$&^_.+-]+|\"[^\"\\r\\n]*\"))*$"
                     }
@@ -2540,17 +2316,9 @@
                 },
                 "contentId": {
                   "type": "string",
-                  "allOf": [
-                    {
-                      "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
-                    },
-                    {
-                      "minLength": 1
-                    },
-                    {
-                      "maxLength": 998
-                    }
-                  ]
+                  "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$",
+                  "minLength": 1,
+                  "maxLength": 998
                 },
                 "content": {
                   "type": "string",
@@ -2563,16 +2331,12 @@
                 "mediaType",
                 "content"
               ],
-              "additionalProperties": false
+              "additionalProperties": true
             },
-            "allOf": [
-              {
-                "maxItems": 100
-              }
-            ]
+            "maxItems": 100
           }
         },
-        "additionalProperties": false
+        "additionalProperties": true
       },
       "EmailMessageEnvelope": {
         "type": "object",
@@ -2582,16 +2346,10 @@
             "properties": {
               "id": {
                 "type": "string",
+                "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$",
+                "minLength": 1,
+                "maxLength": 200,
                 "allOf": [
-                  {
-                    "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
-                  },
-                  {
-                    "minLength": 1
-                  },
-                  {
-                    "maxLength": 200
-                  },
                   {
                     "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
                   }
@@ -2629,16 +2387,10 @@
                 "anyOf": [
                   {
                     "type": "string",
+                    "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$",
+                    "minLength": 1,
+                    "maxLength": 200,
                     "allOf": [
-                      {
-                        "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
-                      },
-                      {
-                        "minLength": 1
-                      },
-                      {
-                        "maxLength": 200
-                      },
                       {
                         "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
                       }
@@ -2653,16 +2405,10 @@
                 "anyOf": [
                   {
                     "type": "string",
+                    "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$",
+                    "minLength": 1,
+                    "maxLength": 200,
                     "allOf": [
-                      {
-                        "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
-                      },
-                      {
-                        "minLength": 1
-                      },
-                      {
-                        "maxLength": 200
-                      },
                       {
                         "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
                       }
@@ -2675,54 +2421,34 @@
               },
               "from": {
                 "type": "string",
-                "allOf": [
-                  {
-                    "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
-                  }
-                ]
+                "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
               },
               "to": {
                 "type": "array",
                 "prefixItems": [
                   {
                     "type": "string",
-                    "allOf": [
-                      {
-                        "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
-                      }
-                    ]
+                    "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
                   }
                 ],
                 "minItems": 1,
                 "items": {
                   "type": "string",
-                  "allOf": [
-                    {
-                      "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
-                    }
-                  ]
+                  "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
                 }
               },
               "cc": {
                 "type": "array",
                 "items": {
                   "type": "string",
-                  "allOf": [
-                    {
-                      "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
-                    }
-                  ]
+                  "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
                 }
               },
               "bcc": {
                 "type": "array",
                 "items": {
                   "type": "string",
-                  "allOf": [
-                    {
-                      "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
-                    }
-                  ]
+                  "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
                 }
               },
               "subject": {
@@ -2737,27 +2463,15 @@
               },
               "sizeBytes": {
                 "type": "integer",
-                "allOf": [
-                  {
-                    "minimum": 0
-                  }
-                ]
+                "minimum": 0
               },
               "providerMessageId": {
                 "anyOf": [
                   {
                     "type": "string",
-                    "allOf": [
-                      {
-                        "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
-                      },
-                      {
-                        "minLength": 1
-                      },
-                      {
-                        "maxLength": 998
-                      }
-                    ]
+                    "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$",
+                    "minLength": 1,
+                    "maxLength": 998
                   },
                   {
                     "type": "null"
@@ -2797,16 +2511,10 @@
                   "properties": {
                     "id": {
                       "type": "string",
+                      "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$",
+                      "minLength": 1,
+                      "maxLength": 200,
                       "allOf": [
-                        {
-                          "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
-                        },
-                        {
-                          "minLength": 1
-                        },
-                        {
-                          "maxLength": 200
-                        },
                         {
                           "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
                         }
@@ -2822,11 +2530,7 @@
                     },
                     "address": {
                       "type": "string",
-                      "allOf": [
-                        {
-                          "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
-                        }
-                      ]
+                      "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
                     },
                     "status": {
                       "type": "string",
@@ -2854,7 +2558,7 @@
                     "createdAt",
                     "updatedAt"
                   ],
-                  "additionalProperties": false
+                  "additionalProperties": true
                 }
               }
             },
@@ -2878,13 +2582,13 @@
               "updatedAt",
               "recipients"
             ],
-            "additionalProperties": false
+            "additionalProperties": true
           }
         },
         "required": [
           "message"
         ],
-        "additionalProperties": false
+        "additionalProperties": true
       },
       "EmailMessagePage": {
         "type": "object",
@@ -2893,16 +2597,10 @@
             "anyOf": [
               {
                 "type": "string",
+                "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$",
+                "minLength": 1,
+                "maxLength": 2048,
                 "allOf": [
-                  {
-                    "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
-                  },
-                  {
-                    "minLength": 1
-                  },
-                  {
-                    "maxLength": 2048
-                  },
                   {
                     "pattern": "^[A-Za-z0-9_-]+$"
                   }
@@ -2920,16 +2618,10 @@
               "properties": {
                 "id": {
                   "type": "string",
+                  "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$",
+                  "minLength": 1,
+                  "maxLength": 200,
                   "allOf": [
-                    {
-                      "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
-                    },
-                    {
-                      "minLength": 1
-                    },
-                    {
-                      "maxLength": 200
-                    },
                     {
                       "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
                     }
@@ -2967,16 +2659,10 @@
                   "anyOf": [
                     {
                       "type": "string",
+                      "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$",
+                      "minLength": 1,
+                      "maxLength": 200,
                       "allOf": [
-                        {
-                          "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
-                        },
-                        {
-                          "minLength": 1
-                        },
-                        {
-                          "maxLength": 200
-                        },
                         {
                           "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
                         }
@@ -2991,16 +2677,10 @@
                   "anyOf": [
                     {
                       "type": "string",
+                      "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$",
+                      "minLength": 1,
+                      "maxLength": 200,
                       "allOf": [
-                        {
-                          "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
-                        },
-                        {
-                          "minLength": 1
-                        },
-                        {
-                          "maxLength": 200
-                        },
                         {
                           "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
                         }
@@ -3013,54 +2693,34 @@
                 },
                 "from": {
                   "type": "string",
-                  "allOf": [
-                    {
-                      "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
-                    }
-                  ]
+                  "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
                 },
                 "to": {
                   "type": "array",
                   "prefixItems": [
                     {
                       "type": "string",
-                      "allOf": [
-                        {
-                          "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
-                        }
-                      ]
+                      "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
                     }
                   ],
                   "minItems": 1,
                   "items": {
                     "type": "string",
-                    "allOf": [
-                      {
-                        "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
-                      }
-                    ]
+                    "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
                   }
                 },
                 "cc": {
                   "type": "array",
                   "items": {
                     "type": "string",
-                    "allOf": [
-                      {
-                        "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
-                      }
-                    ]
+                    "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
                   }
                 },
                 "bcc": {
                   "type": "array",
                   "items": {
                     "type": "string",
-                    "allOf": [
-                      {
-                        "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
-                      }
-                    ]
+                    "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
                   }
                 },
                 "subject": {
@@ -3075,27 +2735,15 @@
                 },
                 "sizeBytes": {
                   "type": "integer",
-                  "allOf": [
-                    {
-                      "minimum": 0
-                    }
-                  ]
+                  "minimum": 0
                 },
                 "providerMessageId": {
                   "anyOf": [
                     {
                       "type": "string",
-                      "allOf": [
-                        {
-                          "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
-                        },
-                        {
-                          "minLength": 1
-                        },
-                        {
-                          "maxLength": 998
-                        }
-                      ]
+                      "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$",
+                      "minLength": 1,
+                      "maxLength": 998
                     },
                     {
                       "type": "null"
@@ -3135,16 +2783,10 @@
                     "properties": {
                       "id": {
                         "type": "string",
+                        "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$",
+                        "minLength": 1,
+                        "maxLength": 200,
                         "allOf": [
-                          {
-                            "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
-                          },
-                          {
-                            "minLength": 1
-                          },
-                          {
-                            "maxLength": 200
-                          },
                           {
                             "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
                           }
@@ -3160,11 +2802,7 @@
                       },
                       "address": {
                         "type": "string",
-                        "allOf": [
-                          {
-                            "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
-                          }
-                        ]
+                        "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
                       },
                       "status": {
                         "type": "string",
@@ -3192,7 +2830,7 @@
                       "createdAt",
                       "updatedAt"
                     ],
-                    "additionalProperties": false
+                    "additionalProperties": true
                   }
                 }
               },
@@ -3216,7 +2854,7 @@
                 "updatedAt",
                 "recipients"
               ],
-              "additionalProperties": false
+              "additionalProperties": true
             }
           }
         },
@@ -3224,7 +2862,7 @@
           "cursor",
           "items"
         ],
-        "additionalProperties": false
+        "additionalProperties": true
       },
       "ReceivedContentEnvelope": {
         "type": "object",
@@ -3234,16 +2872,10 @@
             "properties": {
               "messageId": {
                 "type": "string",
+                "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$",
+                "minLength": 1,
+                "maxLength": 200,
                 "allOf": [
-                  {
-                    "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
-                  },
-                  {
-                    "minLength": 1
-                  },
-                  {
-                    "maxLength": 200
-                  },
                   {
                     "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
                   }
@@ -3251,16 +2883,10 @@
               },
               "routeId": {
                 "type": "string",
+                "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$",
+                "minLength": 1,
+                "maxLength": 200,
                 "allOf": [
-                  {
-                    "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
-                  },
-                  {
-                    "minLength": 1
-                  },
-                  {
-                    "maxLength": 200
-                  },
                   {
                     "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
                   }
@@ -3268,54 +2894,34 @@
               },
               "envelopeFrom": {
                 "type": "string",
-                "allOf": [
-                  {
-                    "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
-                  }
-                ]
+                "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
               },
               "envelopeTo": {
                 "type": "array",
                 "prefixItems": [
                   {
                     "type": "string",
-                    "allOf": [
-                      {
-                        "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
-                      }
-                    ]
+                    "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
                   }
                 ],
                 "minItems": 1,
                 "items": {
                   "type": "string",
-                  "allOf": [
-                    {
-                      "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
-                    }
-                  ]
+                  "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
                 }
               },
               "headerFrom": {
                 "type": "array",
                 "items": {
                   "type": "string",
-                  "allOf": [
-                    {
-                      "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
-                    }
-                  ]
+                  "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
                 }
               },
               "replyTo": {
                 "type": "array",
                 "items": {
                   "type": "string",
-                  "allOf": [
-                    {
-                      "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
-                    }
-                  ]
+                  "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
                 }
               },
               "subject": {
@@ -3355,16 +2961,10 @@
                     "anyOf": [
                       {
                         "type": "string",
+                        "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$",
+                        "minLength": 1,
+                        "maxLength": 900,
                         "allOf": [
-                          {
-                            "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
-                          },
-                          {
-                            "minLength": 1
-                          },
-                          {
-                            "maxLength": 900
-                          },
                           {
                             "pattern": "^<[^<>\\r\\n]+>$"
                           }
@@ -3379,16 +2979,10 @@
                     "anyOf": [
                       {
                         "type": "string",
+                        "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$",
+                        "minLength": 1,
+                        "maxLength": 900,
                         "allOf": [
-                          {
-                            "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
-                          },
-                          {
-                            "minLength": 1
-                          },
-                          {
-                            "maxLength": 900
-                          },
                           {
                             "pattern": "^<[^<>\\r\\n]+>$"
                           }
@@ -3403,16 +2997,10 @@
                     "type": "array",
                     "items": {
                       "type": "string",
+                      "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$",
+                      "minLength": 1,
+                      "maxLength": 900,
                       "allOf": [
-                        {
-                          "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
-                        },
-                        {
-                          "minLength": 1
-                        },
-                        {
-                          "maxLength": 900
-                        },
                         {
                           "pattern": "^<[^<>\\r\\n]+>$"
                         }
@@ -3425,7 +3013,7 @@
                   "inReplyTo",
                   "references"
                 ],
-                "additionalProperties": false
+                "additionalProperties": true
               },
               "automation": {
                 "type": "object",
@@ -3473,7 +3061,7 @@
                   "listId",
                   "responseSuppression"
                 ],
-                "additionalProperties": false
+                "additionalProperties": true
               },
               "attachments": {
                 "type": "array",
@@ -3482,24 +3070,14 @@
                   "properties": {
                     "id": {
                       "type": "string",
-                      "allOf": [
-                        {
-                          "pattern": "^v1_[0-9]+$"
-                        }
-                      ]
+                      "pattern": "^v1_[0-9]+$"
                     },
                     "filename": {
                       "anyOf": [
                         {
                           "type": "string",
-                          "allOf": [
-                            {
-                              "minLength": 1
-                            },
-                            {
-                              "maxLength": 255
-                            }
-                          ]
+                          "minLength": 1,
+                          "maxLength": 255
                         },
                         {
                           "type": "null"
@@ -3508,16 +3086,10 @@
                     },
                     "mediaType": {
                       "type": "string",
+                      "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$",
+                      "minLength": 1,
+                      "maxLength": 255,
                       "allOf": [
-                        {
-                          "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
-                        },
-                        {
-                          "minLength": 1
-                        },
-                        {
-                          "maxLength": 255
-                        },
                         {
                           "pattern": "^[A-Za-z0-9!#$&^_.+-]+\\/[A-Za-z0-9!#$&^_.+-]+(?:\\s*;\\s*[A-Za-z0-9!#$&^_.+-]+=(?:[A-Za-z0-9!#$&^_.+-]+|\"[^\"\\r\\n]*\"))*$"
                         }
@@ -3541,14 +3113,8 @@
                       "anyOf": [
                         {
                           "type": "string",
-                          "allOf": [
-                            {
-                              "minLength": 1
-                            },
-                            {
-                              "maxLength": 998
-                            }
-                          ]
+                          "minLength": 1,
+                          "maxLength": 998
                         },
                         {
                           "type": "null"
@@ -3557,11 +3123,7 @@
                     },
                     "sizeBytes": {
                       "type": "integer",
-                      "allOf": [
-                        {
-                          "minimum": 0
-                        }
-                      ]
+                      "minimum": 0
                     }
                   },
                   "required": [
@@ -3572,7 +3134,7 @@
                     "contentId",
                     "sizeBytes"
                   ],
-                  "additionalProperties": false
+                  "additionalProperties": true
                 }
               }
             },
@@ -3590,13 +3152,13 @@
               "automation",
               "attachments"
             ],
-            "additionalProperties": false
+            "additionalProperties": true
           }
         },
         "required": [
           "content"
         ],
-        "additionalProperties": false
+        "additionalProperties": true
       },
       "EmailRouteList": {
         "type": "object",
@@ -3608,16 +3170,10 @@
               "properties": {
                 "id": {
                   "type": "string",
+                  "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$",
+                  "minLength": 1,
+                  "maxLength": 200,
                   "allOf": [
-                    {
-                      "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
-                    },
-                    {
-                      "minLength": 1
-                    },
-                    {
-                      "maxLength": 200
-                    },
                     {
                       "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
                     }
@@ -3632,19 +3188,11 @@
                 },
                 "address": {
                   "type": "string",
-                  "allOf": [
-                    {
-                      "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
-                    }
-                  ]
+                  "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
                 },
                 "mailboxHandle": {
                   "type": "string",
-                  "allOf": [
-                    {
-                      "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
-                    }
-                  ]
+                  "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
                 },
                 "inbound": {
                   "anyOf": [
@@ -3661,7 +3209,7 @@
                       "required": [
                         "kind"
                       ],
-                      "additionalProperties": false
+                      "additionalProperties": true
                     },
                     {
                       "type": "object",
@@ -3674,16 +3222,10 @@
                         },
                         "workflowId": {
                           "type": "string",
+                          "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$",
+                          "minLength": 1,
+                          "maxLength": 200,
                           "allOf": [
-                            {
-                              "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
-                            },
-                            {
-                              "minLength": 1
-                            },
-                            {
-                              "maxLength": 200
-                            },
                             {
                               "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
                             }
@@ -3694,7 +3236,7 @@
                         "kind",
                         "workflowId"
                       ],
-                      "additionalProperties": false
+                      "additionalProperties": true
                     }
                   ]
                 },
@@ -3713,7 +3255,7 @@
                       "required": [
                         "kind"
                       ],
-                      "additionalProperties": false
+                      "additionalProperties": true
                     },
                     {
                       "type": "object",
@@ -3736,7 +3278,7 @@
                         "kind",
                         "role"
                       ],
-                      "additionalProperties": false
+                      "additionalProperties": true
                     }
                   ]
                 },
@@ -3750,11 +3292,7 @@
                 },
                 "revision": {
                   "type": "integer",
-                  "allOf": [
-                    {
-                      "exclusiveMinimum": 0
-                    }
-                  ]
+                  "exclusiveMinimum": 0
                 },
                 "createdAt": {
                   "type": "string"
@@ -3786,25 +3324,21 @@
                 "updatedAt",
                 "disabledAt"
               ],
-              "additionalProperties": false
+              "additionalProperties": true
             }
           }
         },
         "required": [
           "items"
         ],
-        "additionalProperties": false
+        "additionalProperties": true
       },
       "ProvisionRouteRequest": {
         "type": "object",
         "properties": {
           "mailboxHandle": {
             "type": "string",
-            "allOf": [
-              {
-                "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
-              }
-            ]
+            "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
           },
           "inbound": {
             "anyOf": [
@@ -3821,7 +3355,7 @@
                 "required": [
                   "kind"
                 ],
-                "additionalProperties": false
+                "additionalProperties": true
               },
               {
                 "type": "object",
@@ -3834,16 +3368,10 @@
                   },
                   "workflowId": {
                     "type": "string",
+                    "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$",
+                    "minLength": 1,
+                    "maxLength": 200,
                     "allOf": [
-                      {
-                        "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
-                      },
-                      {
-                        "minLength": 1
-                      },
-                      {
-                        "maxLength": 200
-                      },
                       {
                         "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
                       }
@@ -3854,7 +3382,7 @@
                   "kind",
                   "workflowId"
                 ],
-                "additionalProperties": false
+                "additionalProperties": true
               }
             ]
           },
@@ -3873,7 +3401,7 @@
                 "required": [
                   "kind"
                 ],
-                "additionalProperties": false
+                "additionalProperties": true
               },
               {
                 "type": "object",
@@ -3896,7 +3424,7 @@
                   "kind",
                   "role"
                 ],
-                "additionalProperties": false
+                "additionalProperties": true
               }
             ]
           }
@@ -3905,7 +3433,7 @@
           "inbound",
           "outbound"
         ],
-        "additionalProperties": false
+        "additionalProperties": true
       },
       "EmailRouteEnvelope": {
         "type": "object",
@@ -3915,16 +3443,10 @@
             "properties": {
               "id": {
                 "type": "string",
+                "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$",
+                "minLength": 1,
+                "maxLength": 200,
                 "allOf": [
-                  {
-                    "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
-                  },
-                  {
-                    "minLength": 1
-                  },
-                  {
-                    "maxLength": 200
-                  },
                   {
                     "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
                   }
@@ -3939,19 +3461,11 @@
               },
               "address": {
                 "type": "string",
-                "allOf": [
-                  {
-                    "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
-                  }
-                ]
+                "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
               },
               "mailboxHandle": {
                 "type": "string",
-                "allOf": [
-                  {
-                    "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
-                  }
-                ]
+                "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
               },
               "inbound": {
                 "anyOf": [
@@ -3968,7 +3482,7 @@
                     "required": [
                       "kind"
                     ],
-                    "additionalProperties": false
+                    "additionalProperties": true
                   },
                   {
                     "type": "object",
@@ -3981,16 +3495,10 @@
                       },
                       "workflowId": {
                         "type": "string",
+                        "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$",
+                        "minLength": 1,
+                        "maxLength": 200,
                         "allOf": [
-                          {
-                            "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
-                          },
-                          {
-                            "minLength": 1
-                          },
-                          {
-                            "maxLength": 200
-                          },
                           {
                             "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
                           }
@@ -4001,7 +3509,7 @@
                       "kind",
                       "workflowId"
                     ],
-                    "additionalProperties": false
+                    "additionalProperties": true
                   }
                 ]
               },
@@ -4020,7 +3528,7 @@
                     "required": [
                       "kind"
                     ],
-                    "additionalProperties": false
+                    "additionalProperties": true
                   },
                   {
                     "type": "object",
@@ -4043,7 +3551,7 @@
                       "kind",
                       "role"
                     ],
-                    "additionalProperties": false
+                    "additionalProperties": true
                   }
                 ]
               },
@@ -4057,11 +3565,7 @@
               },
               "revision": {
                 "type": "integer",
-                "allOf": [
-                  {
-                    "exclusiveMinimum": 0
-                  }
-                ]
+                "exclusiveMinimum": 0
               },
               "createdAt": {
                 "type": "string"
@@ -4093,216 +3597,345 @@
               "updatedAt",
               "disabledAt"
             ],
-            "additionalProperties": false
+            "additionalProperties": true
           }
         },
         "required": [
           "route"
         ],
-        "additionalProperties": false
+        "additionalProperties": true
       },
       "RouteRotation": {
         "type": "object",
         "properties": {
           "previous": {
-            "$ref": "#/$defs/Objects_"
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$",
+                "minLength": 1,
+                "maxLength": 200,
+                "allOf": [
+                  {
+                    "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
+                  }
+                ]
+              },
+              "environment": {
+                "type": "string",
+                "enum": [
+                  "test",
+                  "live"
+                ]
+              },
+              "address": {
+                "type": "string",
+                "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
+              },
+              "mailboxHandle": {
+                "type": "string",
+                "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
+              },
+              "inbound": {
+                "anyOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "store"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "kind"
+                    ],
+                    "additionalProperties": true
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "trigger"
+                        ]
+                      },
+                      "workflowId": {
+                        "type": "string",
+                        "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$",
+                        "minLength": 1,
+                        "maxLength": 200,
+                        "allOf": [
+                          {
+                            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
+                          }
+                        ]
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "workflowId"
+                    ],
+                    "additionalProperties": true
+                  }
+                ]
+              },
+              "outbound": {
+                "anyOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "disabled"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "kind"
+                    ],
+                    "additionalProperties": true
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "sender"
+                        ]
+                      },
+                      "role": {
+                        "type": "string",
+                        "enum": [
+                          "default",
+                          "alternate"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "role"
+                    ],
+                    "additionalProperties": true
+                  }
+                ]
+              },
+              "status": {
+                "type": "string",
+                "enum": [
+                  "active",
+                  "paused",
+                  "disabled"
+                ]
+              },
+              "revision": {
+                "type": "integer",
+                "exclusiveMinimum": 0
+              },
+              "createdAt": {
+                "type": "string"
+              },
+              "updatedAt": {
+                "type": "string"
+              },
+              "disabledAt": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "id",
+              "environment",
+              "address",
+              "mailboxHandle",
+              "inbound",
+              "outbound",
+              "status",
+              "revision",
+              "createdAt",
+              "updatedAt",
+              "disabledAt"
+            ],
+            "additionalProperties": true
           },
           "replacement": {
-            "$ref": "#/$defs/Objects_"
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$",
+                "minLength": 1,
+                "maxLength": 200,
+                "allOf": [
+                  {
+                    "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
+                  }
+                ]
+              },
+              "environment": {
+                "type": "string",
+                "enum": [
+                  "test",
+                  "live"
+                ]
+              },
+              "address": {
+                "type": "string",
+                "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
+              },
+              "mailboxHandle": {
+                "type": "string",
+                "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
+              },
+              "inbound": {
+                "anyOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "store"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "kind"
+                    ],
+                    "additionalProperties": true
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "trigger"
+                        ]
+                      },
+                      "workflowId": {
+                        "type": "string",
+                        "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$",
+                        "minLength": 1,
+                        "maxLength": 200,
+                        "allOf": [
+                          {
+                            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
+                          }
+                        ]
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "workflowId"
+                    ],
+                    "additionalProperties": true
+                  }
+                ]
+              },
+              "outbound": {
+                "anyOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "disabled"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "kind"
+                    ],
+                    "additionalProperties": true
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "sender"
+                        ]
+                      },
+                      "role": {
+                        "type": "string",
+                        "enum": [
+                          "default",
+                          "alternate"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "role"
+                    ],
+                    "additionalProperties": true
+                  }
+                ]
+              },
+              "status": {
+                "type": "string",
+                "enum": [
+                  "active",
+                  "paused",
+                  "disabled"
+                ]
+              },
+              "revision": {
+                "type": "integer",
+                "exclusiveMinimum": 0
+              },
+              "createdAt": {
+                "type": "string"
+              },
+              "updatedAt": {
+                "type": "string"
+              },
+              "disabledAt": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "id",
+              "environment",
+              "address",
+              "mailboxHandle",
+              "inbound",
+              "outbound",
+              "status",
+              "revision",
+              "createdAt",
+              "updatedAt",
+              "disabledAt"
+            ],
+            "additionalProperties": true
           }
         },
         "required": [
           "previous",
           "replacement"
         ],
-        "additionalProperties": false,
-        "$defs": {
-          "Objects_": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string",
-                "allOf": [
-                  {
-                    "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
-                  },
-                  {
-                    "minLength": 1
-                  },
-                  {
-                    "maxLength": 200
-                  },
-                  {
-                    "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
-                  }
-                ]
-              },
-              "environment": {
-                "type": "string",
-                "enum": [
-                  "test",
-                  "live"
-                ]
-              },
-              "address": {
-                "type": "string",
-                "allOf": [
-                  {
-                    "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
-                  }
-                ]
-              },
-              "mailboxHandle": {
-                "type": "string",
-                "allOf": [
-                  {
-                    "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
-                  }
-                ]
-              },
-              "inbound": {
-                "anyOf": [
-                  {
-                    "type": "object",
-                    "properties": {
-                      "kind": {
-                        "type": "string",
-                        "enum": [
-                          "store"
-                        ]
-                      }
-                    },
-                    "required": [
-                      "kind"
-                    ],
-                    "additionalProperties": false
-                  },
-                  {
-                    "type": "object",
-                    "properties": {
-                      "kind": {
-                        "type": "string",
-                        "enum": [
-                          "trigger"
-                        ]
-                      },
-                      "workflowId": {
-                        "type": "string",
-                        "allOf": [
-                          {
-                            "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
-                          },
-                          {
-                            "minLength": 1
-                          },
-                          {
-                            "maxLength": 200
-                          },
-                          {
-                            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
-                          }
-                        ]
-                      }
-                    },
-                    "required": [
-                      "kind",
-                      "workflowId"
-                    ],
-                    "additionalProperties": false
-                  }
-                ]
-              },
-              "outbound": {
-                "anyOf": [
-                  {
-                    "type": "object",
-                    "properties": {
-                      "kind": {
-                        "type": "string",
-                        "enum": [
-                          "disabled"
-                        ]
-                      }
-                    },
-                    "required": [
-                      "kind"
-                    ],
-                    "additionalProperties": false
-                  },
-                  {
-                    "type": "object",
-                    "properties": {
-                      "kind": {
-                        "type": "string",
-                        "enum": [
-                          "sender"
-                        ]
-                      },
-                      "role": {
-                        "type": "string",
-                        "enum": [
-                          "default",
-                          "alternate"
-                        ]
-                      }
-                    },
-                    "required": [
-                      "kind",
-                      "role"
-                    ],
-                    "additionalProperties": false
-                  }
-                ]
-              },
-              "status": {
-                "type": "string",
-                "enum": [
-                  "active",
-                  "paused",
-                  "disabled"
-                ]
-              },
-              "revision": {
-                "type": "integer",
-                "allOf": [
-                  {
-                    "exclusiveMinimum": 0
-                  }
-                ]
-              },
-              "createdAt": {
-                "type": "string"
-              },
-              "updatedAt": {
-                "type": "string"
-              },
-              "disabledAt": {
-                "anyOf": [
-                  {
-                    "type": "string"
-                  },
-                  {
-                    "type": "null"
-                  }
-                ]
-              }
-            },
-            "required": [
-              "id",
-              "environment",
-              "address",
-              "mailboxHandle",
-              "inbound",
-              "outbound",
-              "status",
-              "revision",
-              "createdAt",
-              "updatedAt",
-              "disabledAt"
-            ],
-            "additionalProperties": false
-          }
-        }
+        "additionalProperties": true
       },
       "EmailTestRecipientList": {
         "type": "object",
@@ -4314,16 +3947,10 @@
               "properties": {
                 "id": {
                   "type": "string",
+                  "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$",
+                  "minLength": 1,
+                  "maxLength": 200,
                   "allOf": [
-                    {
-                      "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
-                    },
-                    {
-                      "minLength": 1
-                    },
-                    {
-                      "maxLength": 200
-                    },
                     {
                       "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
                     }
@@ -4331,11 +3958,7 @@
                 },
                 "address": {
                   "type": "string",
-                  "allOf": [
-                    {
-                      "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
-                    }
-                  ]
+                  "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
                 },
                 "status": {
                   "type": "string",
@@ -4359,31 +3982,27 @@
                 "createdAt",
                 "updatedAt"
               ],
-              "additionalProperties": false
+              "additionalProperties": true
             }
           }
         },
         "required": [
           "items"
         ],
-        "additionalProperties": false
+        "additionalProperties": true
       },
       "AddTestRecipientRequest": {
         "type": "object",
         "properties": {
           "address": {
             "type": "string",
-            "allOf": [
-              {
-                "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
-              }
-            ]
+            "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
           }
         },
         "required": [
           "address"
         ],
-        "additionalProperties": false
+        "additionalProperties": true
       },
       "EmailTestRecipientEnvelope": {
         "type": "object",
@@ -4393,16 +4012,10 @@
             "properties": {
               "id": {
                 "type": "string",
+                "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$",
+                "minLength": 1,
+                "maxLength": 200,
                 "allOf": [
-                  {
-                    "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
-                  },
-                  {
-                    "minLength": 1
-                  },
-                  {
-                    "maxLength": 200
-                  },
                   {
                     "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
                   }
@@ -4410,11 +4023,7 @@
               },
               "address": {
                 "type": "string",
-                "allOf": [
-                  {
-                    "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
-                  }
-                ]
+                "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$"
               },
               "status": {
                 "type": "string",
@@ -4438,13 +4047,13 @@
               "createdAt",
               "updatedAt"
             ],
-            "additionalProperties": false
+            "additionalProperties": true
           }
         },
         "required": [
           "recipient"
         ],
-        "additionalProperties": false
+        "additionalProperties": true
       }
     },
     "securitySchemes": {

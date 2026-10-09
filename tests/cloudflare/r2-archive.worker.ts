@@ -117,3 +117,29 @@ describe("R2 raw-message archive", () => {
       .toEqual(before.objects.map((object) => object.key))
   })
 })
+
+describe("R2 raw-message archive key prefix", () => {
+  it("prefixes every object key when a keyPrefix is configured", async () => {
+    const archive = makeR2RawMessageArchive(env.EMAIL_RAW, {
+      keyPrefix: "tenants/alpha/",
+    })
+    const input = await fixture(bytes("Subject: prefixed\r\n\r\nbody\r\n"))
+
+    const reference = await Effect.runPromise(archive.referenceFor(input))
+    await Effect.runPromise(archive.put(input))
+
+    const listed = await env.EMAIL_RAW.list({
+      prefix: "tenants/alpha/email-raw/v1/",
+    })
+    expect(listed.objects).toHaveLength(1)
+
+    const read = await Effect.runPromise(archive.get(reference))
+    expect(Option.isSome(read)).toBe(true)
+
+    await Effect.runPromise(archive.remove(reference))
+    const removed = await env.EMAIL_RAW.list({
+      prefix: "tenants/alpha/email-raw/v1/",
+    })
+    expect(removed.objects).toHaveLength(0)
+  })
+})

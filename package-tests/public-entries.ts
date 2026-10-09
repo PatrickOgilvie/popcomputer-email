@@ -1,6 +1,7 @@
 import {
   Address,
   Email,
+  Identifiers,
   Inbound,
   Maintenance,
   Message,
@@ -25,6 +26,7 @@ type NonEmptyModule<Module extends object> =
 const rootModules = {
   Address,
   Email,
+  Identifiers,
   Inbound,
   Maintenance,
   Message,

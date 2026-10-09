@@ -1,6 +1,6 @@
 {
   "name": "@popcomputer/email",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Effect-native email sending, receiving, routing, and workflow triggers",
   "type": "module",
   "packageManager": "bun@1.3.1",
@@ -97,10 +97,10 @@
   },
   "dependencies": {
     "drizzle-orm": "0.45.2",
-    "postal-mime": "2.7.5"
+    "postal-mime": "3.0.0"
   },
   "peerDependencies": {
-    "effect": "^4.0.0-rc.109"
+    "effect": "^4.0.0-rc.116"
   },
   "devDependencies": {
     "@cloudflare/vitest-plugin": "1.0.0",
@@ -108,7 +108,7 @@
     "@oxlint/plugins": "1.78.0",
     "@types/bun": "1.3.14",
     "drizzle-kit": "0.31.10",
-    "effect": "4.0.0-rc.109",
+    "effect": "4.0.0-rc.116",
     "oxlint": "1.78.0",
     "tsx": "4.23.13",
     "typescript": "5.9.3",
