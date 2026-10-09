@@ -22,5 +22,6 @@ and this project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.ht
 
 ### Changed
 
-- Effect peer range is `^4.0.0-rc.116`; postal-mime is `3.0.0`.
+- Effect peer range is `^4.0.0` (stable Effect 4, verified against `4.0.2`);
+  postal-mime is `3.0.0`.
 - Package version `0.2.0`.

@@ -130,8 +130,8 @@ The package callers are:
 
 - TypeScript, ESM, strict compiler options, Node.js 22+, and Web platform
   streams/crypto.
-- Effect `4.0.0-rc.116` for schemas, services, layers, time, schedules, and
-  typed errors.
+- Effect `^4.0.0` (stable; verified against `4.0.2`) for schemas, services,
+  layers, time, schedules, and typed errors.
 - Cloudflare Workers for the first production adapter set.
 - D1 cannot transact with R2 or an HTTP provider.
 - Applying the package migration does not onboard a domain: the deployment
@@ -1039,8 +1039,9 @@ Implement as vertical red-green-refactor slices:
 
 ## Risks and Open Questions
 
-- Effect 4 is currently a release candidate; confirm the version policy before
-  the first stable package release.
+- Effect 4 is stable and the peer range is `^4.0.0`. The package uses only
+  `@stability stable` Effect APIs; adopting an `@stability unstable` module
+  would allow a minor Effect release to break it.
 - Confirm npm organization publication access and whether the public name should
   remain singular `@popcomputer/email`.
 - Select host-specific retention periods before enabling destructive archival
