@@ -292,11 +292,20 @@ const parseMime = (
     catch: () => new InvalidInboundMime({ reason: "parse_failed" }),
   })
 
+/** Durable outcome of one ingestion: the message and whether it already existed. */
+export interface InboundReceipt {
+  readonly message: InboundMessage
+  readonly replayed: boolean
+}
+
 /** Effect service that fully awaits raw archival and metadata/outbox commit. */
 export class InboundService extends Context.Service<InboundService, {
   readonly ingest: (
     input: InboundEnvelope,
   ) => Effect.Effect<InboundMessage, InboundError>
+  readonly receive: (
+    input: InboundEnvelope,
+  ) => Effect.Effect<InboundReceipt, InboundError>
 }>()("@popcomputer/email/InboundService") {}
 
 type InboundServiceDependencies =
@@ -321,9 +330,9 @@ const layerFromParsedConfig = (
     const archive = yield* RawMessageArchive
     const routes = yield* RouteStore
 
-    const ingest = Effect.fn("Email.inbound.ingest")(function*(
+    const receive = Effect.fn("Email.inbound.receive")(function*(
       input: InboundEnvelope,
-    ) {
+    ): Effect.fn.Return<InboundReceipt, InboundError> {
       if (
         input.claimedSizeBytes !== undefined &&
         input.claimedSizeBytes > config.maxBytes
@@ -358,7 +367,9 @@ const layerFromParsedConfig = (
         const providerDuplicate = yield* inboundStore.findDuplicate(
           providerDuplicateKey,
         )
-        if (Option.isSome(providerDuplicate)) return providerDuplicate.value
+        if (Option.isSome(providerDuplicate)) {
+          return { message: providerDuplicate.value, replayed: true }
+        }
       }
 
       const raw = yield* readBounded(input.raw, config.maxBytes)
@@ -382,7 +393,9 @@ const layerFromParsedConfig = (
           }
         : providerDuplicateKey
       const duplicate = yield* inboundStore.findDuplicate(duplicateKey)
-      if (Option.isSome(duplicate)) return duplicate.value
+      if (Option.isSome(duplicate)) {
+        return { message: duplicate.value, replayed: true }
+      }
 
       const messageId = yield* identifiers.messageId
       const recipientId = yield* identifiers.recipientId
@@ -525,18 +538,24 @@ const layerFromParsedConfig = (
       })
       if (committed._tag === "Existing") {
         yield* cleanup()
+        return { message: committed.message, replayed: true }
       }
-      return committed.message
+      return { message: committed.message, replayed: false }
     })
 
+    const provided = (input: InboundEnvelope) => receive(input).pipe(
+      Effect.provideService(ContentDigest, digest),
+      Effect.provideService(IdentifierGenerator, identifiers),
+      Effect.provideService(InboundStore, inboundStore),
+      Effect.provideService(RawMessageArchive, archive),
+      Effect.provideService(RouteStore, routes),
+    )
+
     return InboundService.of({
-      ingest: (input) => ingest(input).pipe(
-        Effect.provideService(ContentDigest, digest),
-        Effect.provideService(IdentifierGenerator, identifiers),
-        Effect.provideService(InboundStore, inboundStore),
-        Effect.provideService(RawMessageArchive, archive),
-        Effect.provideService(RouteStore, routes),
+      ingest: (input) => provided(input).pipe(
+        Effect.map((receipt) => receipt.message),
       ),
+      receive: provided,
     })
   }),
 )

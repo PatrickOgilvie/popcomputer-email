@@ -117,6 +117,17 @@ const forwardable = (
   }
 }
 
+/** Test fakes only need `ingest`; `receive` reports the same message without a replay. */
+const inboundServiceOf = (
+  ingest: InboundService["Service"]["ingest"],
+): InboundService["Service"] =>
+  InboundService.of({
+    ingest,
+    receive: (input) => ingest(input).pipe(
+      Effect.map((message) => ({ message, replayed: false })),
+    ),
+  })
+
 describe("Cloudflare raw send transport", () => {
   test("posts canonical MIME once and maps all recipient outcomes", async () => {
     const calls: Array<{
@@ -399,14 +410,12 @@ describe("Cloudflare inbound handler", () => {
     const observed: Array<InboundEnvelope> = []
     const gate = Promise.withResolvers<void>()
     let completed = false
-    const service = InboundService.of({
-      ingest: (input) => Effect.promise(async () => {
-        observed.push(input)
-        await gate.promise
-        completed = true
-        return inboundMessage
-      }),
-    })
+    const service = inboundServiceOf((input) => Effect.promise(async () => {
+      observed.push(input)
+      await gate.promise
+      completed = true
+      return inboundMessage
+    }))
     const incoming = forwardable()
     const pending = makeInboundEmailHandler(service)(incoming.message)
     await Promise.resolve()
@@ -449,9 +458,7 @@ describe("Cloudflare inbound handler", () => {
     ]
 
     for (const candidate of cases) {
-      const service = InboundService.of({
-        ingest: () => Effect.fail(candidate.error),
-      })
+      const service = inboundServiceOf(() => Effect.fail(candidate.error))
       const incoming = forwardable()
       await makeInboundEmailHandler(service)(incoming.message)
       expect(incoming.rejections).toEqual([candidate.rejection])
@@ -460,11 +467,9 @@ describe("Cloudflare inbound handler", () => {
 
   test("rejects an invalid provider envelope without calling ingestion", async () => {
     let calls = 0
-    const service = InboundService.of({
-      ingest: () => {
-        calls += 1
-        return Effect.succeed(inboundMessage)
-      },
+    const service = inboundServiceOf(() => {
+      calls += 1
+      return Effect.succeed(inboundMessage)
     })
     const incoming = forwardable("not an address")
 
@@ -475,11 +480,13 @@ describe("Cloudflare inbound handler", () => {
   })
 
   test("rethrows transient durability failures for runtime retry", async () => {
+    const failure = new InboundStoreFailure({
+      operation: "commit",
+      reason: "unavailable",
+    })
     const service = InboundService.of({
-      ingest: () => Effect.fail(new InboundStoreFailure({
-        operation: "commit",
-        reason: "unavailable",
-      })),
+      ingest: () => Effect.fail(failure),
+      receive: () => Effect.fail(failure),
     })
     const incoming = forwardable()
 

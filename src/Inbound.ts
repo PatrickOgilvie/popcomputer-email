@@ -14,6 +14,7 @@ export {
   type InboundConfig,
   type InboundEnvelope,
   type InboundError,
+  type InboundReceipt,
 } from "./application/inbound-service.js"
 export {
   MaximumOperationalDurationMilliseconds,

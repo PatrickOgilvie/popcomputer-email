@@ -3,7 +3,7 @@ import { Schema } from "effect"
 const OpaqueIdentifierSchema = Schema.Trimmed.check(
   Schema.isNonEmpty(),
   Schema.isMaxLength(200),
-  Schema.isPattern(/^[A-Za-z0-9][A-Za-z0-9._:-]*$/),
+  Schema.isPattern(/^[A-Za-z0-9][A-Za-z0-9._:-]*$/u),
 )
 
 const hasNoAsciiControlCharacters = (value: string): boolean =>
@@ -112,7 +112,7 @@ export type TestRecipientId = typeof TestRecipientIdSchema.Type
 export const IdempotencyKeySchema = Schema.Trimmed.check(
   Schema.isNonEmpty(),
   Schema.isMaxLength(200),
-  Schema.isPattern(/^[\x21-\x7e]+$/),
+  Schema.isPattern(/^[\x21-\x7e]+$/u),
 ).pipe(Schema.brand("EmailIdempotencyKey"))
 
 /** Caller-selected key that makes one mutation safely replayable. */
@@ -120,7 +120,7 @@ export type IdempotencyKey = typeof IdempotencyKeySchema.Type
 
 /** SHA-256 digest of a canonical mutation request. */
 export const RequestFingerprintSchema = Schema.String.check(
-  Schema.isPattern(/^[0-9a-f]{64}$/),
+  Schema.isPattern(/^[0-9a-f]{64}$/u),
 ).pipe(Schema.brand("EmailRequestFingerprint"))
 
 /** SHA-256 digest of a canonical mutation request. */
@@ -128,7 +128,7 @@ export type RequestFingerprint = typeof RequestFingerprintSchema.Type
 
 /** Lowercase hexadecimal SHA-256 digest of raw content. */
 export const Sha256Schema = Schema.String.check(
-  Schema.isPattern(/^[0-9a-f]{64}$/),
+  Schema.isPattern(/^[0-9a-f]{64}$/u),
 ).pipe(Schema.brand("EmailSha256"))
 
 /** Lowercase hexadecimal SHA-256 digest of raw content. */
@@ -138,7 +138,7 @@ export type Sha256 = typeof Sha256Schema.Type
 export const PageCursorSchema = Schema.Trimmed.check(
   Schema.isNonEmpty(),
   Schema.isMaxLength(2_048),
-  Schema.isPattern(/^[A-Za-z0-9_-]+$/),
+  Schema.isPattern(/^[A-Za-z0-9_-]+$/u),
 ).pipe(Schema.brand("EmailPageCursor"))
 
 /** Opaque continuation cursor issued by a message listing operation. */

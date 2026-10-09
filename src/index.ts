@@ -1,5 +1,6 @@
 export * as Address from "./Address.js"
 export * as Email from "./Email.js"
+export * as Identifiers from "./Identifiers.js"
 export * as Inbound from "./Inbound.js"
 export * as Maintenance from "./Maintenance.js"
 export * as Message from "./Message.js"

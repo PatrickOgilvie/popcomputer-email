@@ -12,7 +12,8 @@ without introducing a shared framework package.
 ## Status
 
 The package is under active development. The initial public API targets
-Effect `4.0.0-rc.109`, Node.js 22 or newer, and Cloudflare Workers.
+stable Effect 4 (`^4.0.0`, verified against `4.0.2`), Node.js 22 or newer, and
+Cloudflare Workers.
 
 ## Install
 
@@ -47,6 +48,7 @@ The package root exposes cohesive namespace modules:
 import {
   Address,
   Email,
+  Identifiers,
   Inbound,
   Maintenance,
   Message,

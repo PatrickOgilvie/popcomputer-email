@@ -1,3 +1,4 @@
+export * from "./adapters/capture-send-transport.js"
 export * from "./adapters/content-digest.js"
 export * from "./adapters/destination-registry.js"
 export * from "./adapters/identifier-generator.js"
